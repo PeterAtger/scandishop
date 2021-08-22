@@ -20,14 +20,32 @@
   padding-right: 72px;
 }
 
+.Nav-links{
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.logo{
+  flex: 1
+}
+
+.Currency-cart{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
 
 .Nav-link {
   @include headline6;
   padding-left: 16px;
   padding-right: 16px;
   text-decoration: none;
-  font-weight:600;
-
+  color: $app-dark;
+  &:visited{
+    color: $app-dark
+  }
 }
 
 .Nav-link-container {
