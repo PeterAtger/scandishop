@@ -11,13 +11,25 @@
 
 .App-header {
   @include headline6;
+  position: fixed;
+  top: 0px;
+  left: 0px;
   height: 80px;
+  width: 100vw;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   padding-left: 72px;
   padding-right: 72px;
+  background-color: $app-white;
+  border-bottom: 1px solid $app-dark;
+}
+
+.Page{
+  display: flex;
+  margin-top: 80px;
+  height: 200vh;
 }
 
 .Nav-links{
