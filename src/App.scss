@@ -1,0 +1,39 @@
+@import './View/theme.scss';
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  @include headline6;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 72px;
+  padding-right: 72px;
+}
+
+
+.Nav-link {
+  @include headline6;
+  padding-left: 16px;
+  padding-right: 16px;
+  text-decoration: none;
+  font-weight:600;
+
+}
+
+.Nav-link-container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
