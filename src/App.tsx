@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import {
   BrowserRouter as Router,
@@ -6,13 +6,31 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Lottie from 'react-lottie';
+import animationData from './View/assets/animations/burger.json';
+
 import { APP_SVG } from './constants/images';
+import Women from './View/pages/Women/Women';
+
 
 function App() {
+  const [isForward, setIsForward] = useState(true)
+
+  const defaultOptions = {
+    animationData: animationData,
+    loop: false,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+
   return (
     <Router>
       <div className="App">
         <nav className="App-header">
+          <div className="burger-container">
+            <div className="burger"> <Lottie speed={isForward ? 1 : -1} options={defaultOptions} /></div>
+          </div>
           <div className="Nav-links">
             <div className="Nav-link-container">
               <Link className="Nav-link" to="/Women">Women </Link>
@@ -24,7 +42,7 @@ function App() {
               <Link to="/Kids" className="Nav-link">Kids</Link>
             </div>
           </div>
-          <APP_SVG.LOGO className="logo" />
+          <APP_SVG.LOGO className="logo" onClick={() => { setIsForward(!isForward); }} />
           <Link to="/Cart" className="Currency-cart"><APP_SVG.CART /></Link>
         </nav>
 
@@ -51,9 +69,6 @@ function App() {
 }
 
 // To be replaced
-function Women() {
-  return <h2>Women</h2>;
-}
 
 function Men() {
   return <h2>Men</h2>;

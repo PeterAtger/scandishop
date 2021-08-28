@@ -2,6 +2,7 @@
 
 .App {
   text-align: center;
+  display: flex;
 }
 
 .App-logo {
@@ -15,13 +16,12 @@
   top: 0px;
   left: 0px;
   height: 80px;
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  padding-left: 72px;
-  padding-right: 72px;
+  padding-left: 2vw;
+  padding-right: 2vw;
   background-color: $app-white;
   border-bottom: 1px solid $app-dark;
 }
@@ -29,7 +29,22 @@
 .Page{
   display: flex;
   margin-top: 80px;
-  height: 200vh;
+}
+
+.burger{
+  // display:none;
+  height: 40px;
+  @media screen and (max-width:500px) {
+    display: flex;
+  }
+}
+.burger-container{
+  // display:none;
+  height: 40px;
+  @media screen and (max-width:500px) {
+    display: flex;
+    flex: 1;
+  }
 }
 
 .Nav-links{
@@ -37,6 +52,9 @@
   flex-direction: row;
   flex: 1;
   justify-content: flex-start;
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 }
 
 .logo{
