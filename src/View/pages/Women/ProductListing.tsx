@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './Women_styles.scss'
 
-export default class Women extends Component {
+export default class ProductListing extends Component {
     render() {
         return (
             <div className="women-page">
