@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { categoriesReducer } from "./CategoriesReducer";
 import { currencyReducer } from "./currencyReducer";
+import { loadingReducer } from "./LoadingReducer";
 
 const store = configureStore({
     reducer:
     {
         currency: currencyReducer,
-        categories: categoriesReducer
+        categories: categoriesReducer,
+        loading: loadingReducer
     }
 })
 

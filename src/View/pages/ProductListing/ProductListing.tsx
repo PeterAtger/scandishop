@@ -1,8 +1,18 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { CategoryProps } from '../../../Data/Models/DataModels'
+import { RootState } from '../../../Logic/Store/store'
 import './ProductListing_styles.scss'
 
-export default class ProductListing extends Component {
+type Props = {
+    allCategories: CategoryProps[],
+    selectedCategory: number
+}
+
+class ProductListing extends Component<Props> {
     render() {
+        let Products = this.props.allCategories[this.props.selectedCategory]
+        console.log(Products)
         return (
             <div className="women-page">
                 <p className="title">Category name</p>
@@ -18,3 +28,10 @@ export default class ProductListing extends Component {
     }
 }
 
+const MapStateToProps = (state: RootState) => {
+    return {
+        allCategories: state.categories.allCategories,
+        selectedCategory: state.categories.selectedCategory
+    }
+}
+export default connect(MapStateToProps)(ProductListing)

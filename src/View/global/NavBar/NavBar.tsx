@@ -7,7 +7,7 @@ import './NavBar_styles.scss'
 import { connect } from 'react-redux';
 import { CategoryProps, CurrenciesProps } from '../../../Data/Models/DataModels';
 import AppCurrencyDropdown from './components/dropdown';
-import store, { AppDispatch, RootState } from '../../../Logic/Store/store';
+import { AppDispatch, RootState } from '../../../Logic/Store/store';
 import { Capitalize } from '../../../Logic/Helpers/functions';
 import { selectCategory } from '../../../Logic/Store/CategoriesReducer';
 
@@ -61,7 +61,7 @@ export class NavBar extends Component<Props, State> {
                     {Categories}
                 </div>
                 <Link to='/Home'>
-                    <APP_SVG.LOGO className="logo" onClick={() => { console.log(store.getState().categories.selectedCategory); this.setState({ isForward: !this.state.isForward }); }} />
+                    <APP_SVG.LOGO className="logo" onClick={() => { this.setState({ isForward: !this.state.isForward }); }} />
                 </Link>
                 <div className="Currency-cart">
                     <AppCurrencyDropdown placeHolder={currencyPlaceHolder} options={currencyOptions} />
@@ -76,7 +76,8 @@ const MapStateToProps = (state: RootState) => {
     return {
         allCurrencies: state.currency.allCurrencies,
         selectedCurrency: state.currency.selectedCurrency,
-        categories: state.categories.allCategories
+        categories: state.categories.allCategories,
+        loading: state.loading.isLoading
     }
 }
 

@@ -10,22 +10,20 @@ import ProductListing from './View/pages/ProductListing/ProductListing';
 import fetchCurrencies from './Data/Repositories/Currencies';
 import NavBar from './View/global/NavBar/NavBar';
 import fetchCategories from './Data/Repositories/Categories';
+import { connect } from 'react-redux';
+import { AppDispatch, RootState } from './Logic/Store/store';
+import { setLoading } from './Logic/Store/LoadingReducer';
 
-type State = {
-  loading: boolean
-}
 
-class App extends Component<any, State> {
+class App extends Component<any> {
 
-  state: Readonly<State> = {
-    loading: true
-  }
+
 
   componentDidMount = async () => {
-    await fetchCurrencies().then(() => {
-      this.setState({ loading: false })
-    })
+
+    await fetchCurrencies()
     await fetchCategories()
+    this.props.setLoading(false)
 
   }
 
@@ -33,7 +31,7 @@ class App extends Component<any, State> {
     return (
       <Router>
         <div className="App" >
-          <NavBar loading={this.state.loading} />
+          <NavBar />
 
           <div className="Page">
             <Switch>
@@ -58,4 +56,18 @@ function Cart() {
   return <h2>Cart</h2>;
 }
 
-export default App;
+const MapStateToProps = (state: RootState) => {
+  return {
+    loading: state.loading.isLoading
+  }
+}
+
+const MapDispatchToProps = (dispatch: AppDispatch) => {
+  return {
+    setLoading: (state: boolean) => {
+      dispatch(setLoading(state))
+    }
+  }
+}
+
+export default connect(MapStateToProps, MapDispatchToProps)(App);
