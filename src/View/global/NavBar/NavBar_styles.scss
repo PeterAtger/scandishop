@@ -17,7 +17,7 @@
   }
 
   .burger{
-    // display:none;
+    display:none;
     height: 40px;
     @media screen and (max-width:500px) {
       display: flex;
@@ -32,6 +32,7 @@
   }
 
   .Nav-links{
+    cursor: pointer;
     display: flex;
     flex-direction: row;
     flex: 1;

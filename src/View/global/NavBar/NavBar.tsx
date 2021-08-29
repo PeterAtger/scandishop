@@ -5,9 +5,10 @@ import { APP_SVG } from '../../../constants/images';
 import animationData from '../../assets/animations/burger.json';
 import './NavBar_styles.scss'
 import { connect } from 'react-redux';
-import { CurrenciesProps } from '../../../Data/Models/DataModels';
+import { CategoryProps, CurrenciesProps } from '../../../Data/Models/DataModels';
 import AppCurrencyDropdown from './components/dropdown';
 import { RootState } from '../../../Logic/Store/store';
+import { Capitalize } from '../../../Logic/Helpers/functions';
 
 type State = {
     isForward: boolean
@@ -18,6 +19,7 @@ type Props = {
     loading: boolean,
     allCurrencies: CurrenciesProps[],
     selectedCurrency: CurrenciesProps,
+    categories: CategoryProps[]
 }
 
 export class NavBar extends Component<Props, State> {
@@ -37,8 +39,16 @@ export class NavBar extends Component<Props, State> {
 
 
     render() {
-        let placeHolder = this.props.loading ? "Loading..." : `${this.props.selectedCurrency.symbol}    `;
+        let placeHolder = this.props.loading ? "Loading..." : `${this.props.selectedCurrency.symbol}`;
         let options = this.props.loading ? [{ code: '', symbol: '' }] : this.props.allCurrencies;
+        let Categories = this.props.loading ? <div>Loading...</div> :
+            this.props.categories.map(e => {
+                return (
+                    <div key={e.name} className="Nav-link-container">
+                        <div className="Nav-link">{Capitalize(e.name)} </div>
+                    </div>
+                )
+            })
 
         return (
             <nav className="App-header">
@@ -46,15 +56,7 @@ export class NavBar extends Component<Props, State> {
                     <div className="burger"> <Lottie speed={this.state.isForward ? 1 : -1} options={this.defaultOptions} /></div>
                 </div>
                 <div className="Nav-links">
-                    <div className="Nav-link-container">
-                        <Link className="Nav-link" to="/Women">Women </Link>
-                    </div>
-                    <div className="Nav-link-container">
-                        <Link to="/Men" className="Nav-link" >Men</Link>
-                    </div>
-                    <div className="Nav-link-container">
-                        <Link to="/Kids" className="Nav-link">Kids</Link>
-                    </div>
+                    {Categories}
                 </div>
                 <Link to='/Home'>
                     <APP_SVG.LOGO className="logo" onClick={() => { this.setState({ isForward: !this.state.isForward }); }} />
@@ -71,7 +73,8 @@ export class NavBar extends Component<Props, State> {
 const MapStateToProps = (state: RootState) => {
     return {
         allCurrencies: state.currency.allCurrencies,
-        selectedCurrency: state.currency.selectedCurrency
+        selectedCurrency: state.currency.selectedCurrency,
+        categories: state.categories
     }
 }
 
