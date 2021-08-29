@@ -10,7 +10,7 @@ import Lottie from 'react-lottie';
 import animationData from './View/assets/animations/burger.json';
 
 import { APP_SVG } from './constants/images';
-import ProductListing from './View/pages/Women/ProductListing';
+import ProductListing from './View/pages/ProductListing/ProductListing';
 
 type State = {
   isForward: boolean
@@ -55,7 +55,10 @@ class App extends Component<any, State> {
             <Link to='/Home'>
               <APP_SVG.LOGO className="logo" onClick={() => { this.setState({ isForward: !this.state.isForward }); }} />
             </Link>
-            <Link to="/Cart" className="Currency-cart"><APP_SVG.CART /></Link>
+            <div className="Currency-cart">
+              <Link to="/Cart" ><APP_SVG.CART /></Link>
+            </div>
+
           </nav>
 
           <div className="Page">

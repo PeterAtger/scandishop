@@ -3,15 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import {
-  ApolloClient,
-  InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
 
-const client = new ApolloClient({
-  uri: 'https://48p1r2roz4.sse.codesandbox.io',
-  cache: new InMemoryCache()
-});
+import client from './Data/Providers/ApolloClient'
 
 
 ReactDOM.render(
