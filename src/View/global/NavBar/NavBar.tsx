@@ -5,9 +5,9 @@ import { APP_SVG } from '../../../constants/images';
 import animationData from '../../assets/animations/burger.json';
 import './NavBar_styles.scss'
 import { connect } from 'react-redux';
-import { currencySliceProps } from '../../../Logic/Store/rootReducer';
 import { CurrenciesProps } from '../../../Data/Models/DataModels';
 import AppCurrencyDropdown from './components/dropdown';
+import { RootState } from '../../../Logic/Store/store';
 
 type State = {
     isForward: boolean
@@ -68,10 +68,10 @@ export class NavBar extends Component<Props, State> {
     }
 }
 
-const MapStateToProps = (state: currencySliceProps) => {
+const MapStateToProps = (state: RootState) => {
     return {
-        allCurrencies: state.allCurrencies,
-        selectedCurrency: state.selectedCurrency
+        allCurrencies: state.currency.allCurrencies,
+        selectedCurrency: state.currency.selectedCurrency
     }
 }
 

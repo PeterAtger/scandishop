@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Women_styles.scss'
+import './ProductListing_styles.scss'
 
 export default class ProductListing extends Component {
     render() {

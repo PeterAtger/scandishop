@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { AiOutlineDown } from 'react-icons/ai'
 import { connect } from 'react-redux'
 import { CurrenciesProps } from '../../../../Data/Models/DataModels'
-import { selectCurrency } from '../../../../Logic/Store/rootReducer'
+import { selectCurrency } from '../../../../Logic/Store/currencyReducer'
+import { AppDispatch } from '../../../../Logic/Store/store'
 import './dropdown_styles.scss'
 
 
@@ -52,7 +53,7 @@ class AppCurrencyDropdown extends Component<Props, State> {
     }
 }
 
-const MapDispatchToProps = (dispatch: any) => {
+const MapDispatchToProps = (dispatch: AppDispatch) => {
     return {
         selectCurrency: (currency: CurrenciesProps) => dispatch(selectCurrency(currency))
     }

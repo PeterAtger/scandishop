@@ -1,4 +1,4 @@
-import { currencyToStore, selectCurrency } from "../../Logic/Store/rootReducer";
+import { currencyToStore, selectCurrency } from "../../Logic/Store/currencyReducer";
 import { CurrenciesProps } from "../Models/DataModels";
 import client from "../Providers/ApolloClient";
 import { CurrenciesQuery } from "../Providers/Queries";

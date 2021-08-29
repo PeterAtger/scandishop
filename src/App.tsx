@@ -32,16 +32,11 @@ class App extends Component<any, State> {
       <Router>
         <div className="App" >
           <NavBar loading={this.state.loading} />
+
           <div className="Page">
             <Switch>
               <Route path="/Home">
                 <ProductListing />
-              </Route>
-              <Route path="/Men">
-                <Men />
-              </Route>
-              <Route path="/Kids">
-                <Kids />
               </Route>
               <Route path="/Cart">
                 <Cart />
@@ -57,13 +52,6 @@ class App extends Component<any, State> {
 
 // To be replaced
 
-function Men() {
-  return <h2>Men</h2>;
-}
-
-function Kids() {
-  return <h2>Kids</h2>;
-}
 function Cart() {
   return <h2>Cart</h2>;
 }

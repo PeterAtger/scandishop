@@ -22,6 +22,5 @@ const currencySlice: Slice<currencySliceProps> = createSlice({
     }
 })
 
-export type { currencySliceProps }
 export const { currencyToStore, selectCurrency } = currencySlice.actions
 export const currencyReducer = currencySlice.reducer
