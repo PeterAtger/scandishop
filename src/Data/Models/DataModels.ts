@@ -3,4 +3,21 @@ interface CurrenciesProps {
     symbol: string
 }
 
-export type { CurrenciesProps }
+interface PriceProps {
+    amount: number,
+    currency: string
+}
+interface ProductProps {
+    id: string,
+    name: string,
+    inStock: boolean,
+    gallery: string[],
+    prices: PriceProps[]
+}
+
+interface CategoryProps {
+    name: string,
+    products: ProductProps[]
+}
+
+export type { CurrenciesProps, CategoryProps }

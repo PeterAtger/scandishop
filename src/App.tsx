@@ -7,8 +7,9 @@ import {
 } from "react-router-dom";
 
 import ProductListing from './View/pages/ProductListing/ProductListing';
-import fillCurrencies from './Data/Repositories/Currencies';
+import fetchCurrencies from './Data/Repositories/Currencies';
 import NavBar from './View/global/NavBar/NavBar';
+import fetchCategories from './Data/Repositories/Categories';
 
 type State = {
   loading: boolean
@@ -21,10 +22,11 @@ class App extends Component<any, State> {
   }
 
   componentDidMount = async () => {
-    await fillCurrencies().then(() => {
+    await fetchCurrencies().then(() => {
       this.setState({ loading: false })
-    }
-    )
+    })
+    await fetchCategories()
+
   }
 
   render() {

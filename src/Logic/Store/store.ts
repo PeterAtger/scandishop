@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { categoriesReducer } from "./CategoriesReducer";
 import { currencyReducer } from "./currencyReducer";
 
 const store = configureStore({
     reducer:
-        { currency: currencyReducer }
+    {
+        currency: currencyReducer,
+        categories: categoriesReducer
+    }
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

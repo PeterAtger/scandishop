@@ -6,7 +6,7 @@ import getSymbolFromCurrency from 'currency-symbol-map'
 import store from "../../Logic/Store/store";
 
 
-const fillCurrencies = async () => {
+const fetchCurrencies = async () => {
     try {
         let response = await client.query(CurrenciesQuery)
         for (let i = 0; i < response.data.currencies.length; i++) {
@@ -24,5 +24,5 @@ const fillCurrencies = async () => {
     }
 }
 
-export default fillCurrencies;
+export default fetchCurrencies;
 
