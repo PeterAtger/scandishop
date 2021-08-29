@@ -1,65 +1,38 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './App.scss';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-import Lottie from 'react-lottie';
-import animationData from './View/assets/animations/burger.json';
 
-import { APP_SVG } from './constants/images';
 import ProductListing from './View/pages/ProductListing/ProductListing';
+import fillCurrencies from './Data/Repositories/Currencies';
+import store from './Logic/Store/store';
+import NavBar from './View/global/NavBar';
 
 type State = {
-  isForward: boolean
+  loading: boolean
 
 }
-
 
 class App extends Component<any, State> {
 
   state: Readonly<State> = {
-    isForward: false
+    loading: true
   }
 
-
-  defaultOptions = {
-    animationData: animationData,
-    loop: false,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
-  };
+  componentDidMount = async () => {
+    await fillCurrencies()
+    this.setState({ loading: false })
+    console.log(store.getState())
+  }
 
   render() {
     return (
       <Router>
         <div className="App">
-          <nav className="App-header">
-            <div className="burger-container">
-              <div className="burger"> <Lottie speed={this.state.isForward ? 1 : -1} options={this.defaultOptions} /></div>
-            </div>
-            <div className="Nav-links">
-              <div className="Nav-link-container">
-                <Link className="Nav-link" to="/Women">Women </Link>
-              </div>
-              <div className="Nav-link-container">
-                <Link to="/Men" className="Nav-link" >Men</Link>
-              </div>
-              <div className="Nav-link-container">
-                <Link to="/Kids" className="Nav-link">Kids</Link>
-              </div>
-            </div>
-            <Link to='/Home'>
-              <APP_SVG.LOGO className="logo" onClick={() => { this.setState({ isForward: !this.state.isForward }); }} />
-            </Link>
-            <div className="Currency-cart">
-              <Link to="/Cart" ><APP_SVG.CART /></Link>
-            </div>
-
-          </nav>
+          <NavBar />
 
           <div className="Page">
             <Switch>

@@ -8,9 +8,8 @@ const slice = createSlice({
         selectedCurrency: {} as CurrenciesProps
     },
     reducers: {
-        currencyFill: (Currencies, action: { payload: CurrenciesProps[], type: string }) => {
-            for (let i = 0; i < action.payload.length; i++)
-                Currencies.allCurrencies.push(action.payload[i])
+        currencyToStore: (Currencies, action: { payload: CurrenciesProps, type: string }) => {
+            Currencies.allCurrencies.push(action.payload)
         },
         selectCurrency: (Currencies, action: { payload: CurrenciesProps, type: string }) => {
             Currencies.selectedCurrency = action.payload
@@ -18,5 +17,5 @@ const slice = createSlice({
     }
 })
 
-export const { currencyFill, selectCurrency } = slice.actions
+export const { currencyToStore, selectCurrency } = slice.actions
 export const currencyReducer = slice.reducer
