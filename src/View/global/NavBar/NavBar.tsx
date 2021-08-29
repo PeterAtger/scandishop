@@ -7,8 +7,9 @@ import './NavBar_styles.scss'
 import { connect } from 'react-redux';
 import { CategoryProps, CurrenciesProps } from '../../../Data/Models/DataModels';
 import AppCurrencyDropdown from './components/dropdown';
-import { RootState } from '../../../Logic/Store/store';
+import store, { AppDispatch, RootState } from '../../../Logic/Store/store';
 import { Capitalize } from '../../../Logic/Helpers/functions';
+import { selectCategory } from '../../../Logic/Store/CategoriesReducer';
 
 type State = {
     isForward: boolean
@@ -19,7 +20,8 @@ type Props = {
     loading: boolean,
     allCurrencies: CurrenciesProps[],
     selectedCurrency: CurrenciesProps,
-    categories: CategoryProps[]
+    categories: CategoryProps[],
+    selectCategory: any
 }
 
 export class NavBar extends Component<Props, State> {
@@ -39,12 +41,12 @@ export class NavBar extends Component<Props, State> {
 
 
     render() {
-        let placeHolder = this.props.loading ? "Loading..." : `${this.props.selectedCurrency.symbol}`;
-        let options = this.props.loading ? [{ code: '', symbol: '' }] : this.props.allCurrencies;
+        let currencyPlaceHolder = this.props.loading ? "Loading..." : `${this.props.selectedCurrency.symbol}`;
+        let currencyOptions = this.props.loading ? [{ code: '', symbol: '' }] : this.props.allCurrencies;
         let Categories = this.props.loading ? <div>Loading...</div> :
-            this.props.categories.map(e => {
+            this.props.categories.map((e, index) => {
                 return (
-                    <div key={e.name} className="Nav-link-container">
+                    <div key={e.name} onClick={() => { this.props.selectCategory(index) }} className="Nav-link-container">
                         <div className="Nav-link">{Capitalize(e.name)} </div>
                     </div>
                 )
@@ -59,10 +61,10 @@ export class NavBar extends Component<Props, State> {
                     {Categories}
                 </div>
                 <Link to='/Home'>
-                    <APP_SVG.LOGO className="logo" onClick={() => { this.setState({ isForward: !this.state.isForward }); }} />
+                    <APP_SVG.LOGO className="logo" onClick={() => { console.log(store.getState().categories.selectedCategory); this.setState({ isForward: !this.state.isForward }); }} />
                 </Link>
                 <div className="Currency-cart">
-                    <AppCurrencyDropdown placeHolder={placeHolder} options={options} />
+                    <AppCurrencyDropdown placeHolder={currencyPlaceHolder} options={currencyOptions} />
                     <Link to="/Cart" ><APP_SVG.CART /></Link>
                 </div>
             </nav>
@@ -74,10 +76,18 @@ const MapStateToProps = (state: RootState) => {
     return {
         allCurrencies: state.currency.allCurrencies,
         selectedCurrency: state.currency.selectedCurrency,
-        categories: state.categories
+        categories: state.categories.allCategories
+    }
+}
+
+const MapDispatchToProps = (dispatch: AppDispatch) => {
+    return {
+        selectCategory: (index: number) => {
+            dispatch(selectCategory(index))
+        }
     }
 }
 
 
 
-export default connect(MapStateToProps)(NavBar)
+export default connect(MapStateToProps, MapDispatchToProps)(NavBar)
