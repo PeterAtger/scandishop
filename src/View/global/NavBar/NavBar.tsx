@@ -1,19 +1,31 @@
 import React, { Component } from 'react'
 import Lottie from 'react-lottie';
 import { Link } from 'react-router-dom';
-import { APP_SVG } from '../../constants/images';
-import animationData from '../assets/animations/burger.json';
+import { APP_SVG } from '../../../constants/images';
+import animationData from '../../assets/animations/burger.json';
+import './NavBar_styles.scss'
+import { connect } from 'react-redux';
+import { currencySliceProps } from '../../../Logic/Store/rootReducer';
+import { CurrenciesProps } from '../../../Data/Models/DataModels';
+import AppCurrencyDropdown from './components/dropdown';
 
 type State = {
     isForward: boolean
 
 }
 
-export class NavBar extends Component<any, State> {
+type Props = {
+    loading: boolean,
+    allCurrencies: CurrenciesProps[],
+    selectedCurrency: CurrenciesProps,
+}
+
+export class NavBar extends Component<Props, State> {
 
     state: Readonly<State> = {
         isForward: false
     }
+
 
     defaultOptions = {
         animationData: animationData,
@@ -22,7 +34,12 @@ export class NavBar extends Component<any, State> {
             preserveAspectRatio: "xMidYMid slice"
         }
     };
+
+
     render() {
+        let placeHolder = this.props.loading ? "Loading..." : `${this.props.selectedCurrency.symbol}    `;
+        let options = this.props.loading ? [{ code: '', symbol: '' }] : this.props.allCurrencies;
+
         return (
             <nav className="App-header">
                 <div className="burger-container">
@@ -43,6 +60,7 @@ export class NavBar extends Component<any, State> {
                     <APP_SVG.LOGO className="logo" onClick={() => { this.setState({ isForward: !this.state.isForward }); }} />
                 </Link>
                 <div className="Currency-cart">
+                    <AppCurrencyDropdown placeHolder={placeHolder} options={options} />
                     <Link to="/Cart" ><APP_SVG.CART /></Link>
                 </div>
             </nav>
@@ -50,4 +68,13 @@ export class NavBar extends Component<any, State> {
     }
 }
 
-export default NavBar
+const MapStateToProps = (state: currencySliceProps) => {
+    return {
+        allCurrencies: state.allCurrencies,
+        selectedCurrency: state.selectedCurrency
+    }
+}
+
+
+
+export default connect(MapStateToProps)(NavBar)

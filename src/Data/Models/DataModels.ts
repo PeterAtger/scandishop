@@ -1,6 +1,6 @@
 interface CurrenciesProps {
     code: string,
-    symbol: string | undefined
+    symbol: string
 }
 
 export type { CurrenciesProps }

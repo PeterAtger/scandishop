@@ -1,0 +1,36 @@
+@import '../../../theme.scss';
+
+.dropdown-container{
+    @include body1;
+
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background-color: white;
+    color: $app-dark;
+    align-items: flex-end;
+}
+
+.currency-dropdown-selector{
+    display: flex;
+    align-items: flex-end;
+    margin: 8px;
+
+  }
+
+.option{
+    margin: 8px;
+    margin-right: 32px;
+    &:hover{
+        color: $app-primary;
+    }
+}
+
+.dropdown-menu{
+    display: flex;
+    position: absolute;
+    top: 64px;
+    background-color: $app-white;
+    flex-direction: column;
+    box-shadow: $card-shadow;
+}

@@ -8,12 +8,10 @@ import {
 
 import ProductListing from './View/pages/ProductListing/ProductListing';
 import fillCurrencies from './Data/Repositories/Currencies';
-import store from './Logic/Store/store';
-import NavBar from './View/global/NavBar';
+import NavBar from './View/global/NavBar/NavBar';
 
 type State = {
   loading: boolean
-
 }
 
 class App extends Component<any, State> {
@@ -23,17 +21,17 @@ class App extends Component<any, State> {
   }
 
   componentDidMount = async () => {
-    await fillCurrencies()
-    this.setState({ loading: false })
-    console.log(store.getState())
+    await fillCurrencies().then(() => {
+      this.setState({ loading: false })
+    }
+    )
   }
 
   render() {
     return (
       <Router>
-        <div className="App">
-          <NavBar />
-
+        <div className="App" >
+          <NavBar loading={this.state.loading} />
           <div className="Page">
             <Switch>
               <Route path="/Home">

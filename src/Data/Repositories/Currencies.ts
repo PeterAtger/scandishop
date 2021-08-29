@@ -10,9 +10,10 @@ const fillCurrencies = async () => {
     try {
         let response = await client.query(CurrenciesQuery)
         for (let i = 0; i < response.data.currencies.length; i++) {
+            let symbol = getSymbolFromCurrency(response.data.currencies[i])
             let currency: CurrenciesProps = {
                 code: response.data.currencies[i],
-                symbol: getSymbolFromCurrency(response.data.currencies[i])
+                symbol: symbol ? symbol : "$"
             }
             store.dispatch(currencyToStore(currency))
             if (i === 0)

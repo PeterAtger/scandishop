@@ -1,7 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, Slice } from "@reduxjs/toolkit";
 import { CurrenciesProps } from "../../Data/Models/DataModels";
 
-const slice = createSlice({
+type currencySliceProps = {
+    allCurrencies: CurrenciesProps[];
+    selectedCurrency: CurrenciesProps;
+}
+
+const currencySlice: Slice<currencySliceProps> = createSlice({
     name: 'Currencies',
     initialState: {
         allCurrencies: [] as CurrenciesProps[],
@@ -17,5 +22,6 @@ const slice = createSlice({
     }
 })
 
-export const { currencyToStore, selectCurrency } = slice.actions
-export const currencyReducer = slice.reducer
+export type { currencySliceProps }
+export const { currencyToStore, selectCurrency } = currencySlice.actions
+export const currencyReducer = currencySlice.reducer
