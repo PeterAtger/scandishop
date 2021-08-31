@@ -43,7 +43,7 @@ export class NavBar extends Component<Props, State> {
     render() {
         let currencyPlaceHolder = this.props.loading ? "Loading..." : `${this.props.selectedCurrency.symbol}`;
         let currencyOptions = this.props.loading ? [{ code: '', symbol: '' }] : this.props.allCurrencies;
-        let Categories = this.props.loading ? <div>Loading...</div> :
+        let Categories = this.props.loading ? <div>Categories</div> :
             this.props.categories.map((e, index) => {
                 return (
                     <div key={e.name} onClick={() => { this.props.selectCategory(index) }} className="Nav-link-container">
