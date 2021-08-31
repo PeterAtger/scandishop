@@ -20,4 +20,4 @@ interface CategoryProps {
     products: ProductProps[]
 }
 
-export type { CurrenciesProps, CategoryProps }
+export type { CurrenciesProps, CategoryProps, ProductProps, PriceProps }
