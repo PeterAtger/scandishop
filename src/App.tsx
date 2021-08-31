@@ -20,10 +20,14 @@ class App extends Component<any> {
 
 
   componentDidMount = async () => {
-
-    await fetchCurrencies()
-    await fetchCategories()
-    this.props.setLoading(false)
+    try {
+      await fetchCurrencies()
+      await fetchCategories()
+      this.props.setLoading(false)
+    } catch (e) {
+      alert("Please check your connection")
+      throw new Error(e)
+    }
 
   }
 

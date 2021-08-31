@@ -20,7 +20,7 @@ const fetchCurrencies = async () => {
                 store.dispatch(selectCurrency(currency))
         }
     } catch (e) {
-        console.log(e)
+        throw new Error(e)
     }
 }
 

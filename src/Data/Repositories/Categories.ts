@@ -10,7 +10,7 @@ const fetchCategories = async () => {
             store.dispatch(addCategoryToStore(response.data.categories[i]))
         }
     } catch (e) {
-        console.log(e)
+        throw new Error(e)
     }
 }
 
