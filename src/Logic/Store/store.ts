@@ -2,13 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import { categoriesReducer } from "./CategoriesReducer";
 import { currencyReducer } from "./currencyReducer";
 import { loadingReducer } from "./LoadingReducer";
+import { productReducer } from "./ProductReducers";
 
 const store = configureStore({
     reducer:
     {
         currency: currencyReducer,
         categories: categoriesReducer,
-        loading: loadingReducer
+        loading: loadingReducer,
+        products: productReducer
     }
 })
 

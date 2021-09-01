@@ -2,6 +2,7 @@
 
 .items{
     display: flex;
+    cursor: pointer;
     flex-wrap: wrap;
     flex-direction: row;
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { CategoryProps, CurrenciesProps } from '../../../Data/Models/DataModels'
 import { Capitalize } from '../../../Logic/Helpers/functions'
 import { RootState } from '../../../Logic/Store/store'
-import ProductCard from './Component/ProductCard'
+import ProductCard from './Components/ProductCard'
 import './ProductListing_styles.scss'
 
 type Props = {
@@ -20,7 +20,7 @@ class ProductListing extends Component<Props> {
         let items = this.props.loading ? "Loading..." :
             products?.map(product => {
                 let price = product.prices.filter(value => value.currency === this.props.selectedCurrency.code)
-                return (<ProductCard product={product} price={price} />)
+                return (<ProductCard key={product.id} product={product} price={price} />)
             })
         return (
             <div className="women-page">

@@ -29,4 +29,37 @@ const CategoriesQuery = {
 `
 }
 
-export { CurrenciesQuery, CategoriesQuery }
+const ProductQuery = (id: string) => {
+  return {
+    query: gql`
+    query{
+      product(id:"${id}"){
+      id
+      name
+      inStock
+      gallery
+      description
+      prices{
+          amount,
+          currency
+      }
+      attributes{
+        id,
+        name,
+        type,
+        items{
+          displayValue,
+          value,
+          id
+        }
+      },
+      brand
+      
+    }
+  }
+    `
+  }
+
+}
+
+export { CurrenciesQuery, CategoriesQuery, ProductQuery }
