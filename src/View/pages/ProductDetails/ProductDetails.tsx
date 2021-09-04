@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { RouteComponentProps, withRouter } from 'react-router'
 import { ProductProps } from '../../../Data/Models/DataModels'
 import { RootState } from '../../../Logic/Store/store'
 
-type Props = {
+interface Props extends RouteComponentProps {
     loading: boolean,
     products: ProductProps[],
     selectedProduct: number
@@ -21,7 +22,7 @@ class ProductDetails extends Component<Props> {
                 }
                 title = currentProduct.name;
             } catch (e) {
-                console.log(e)
+                this.props.history.replace('/')
             }
         }
         return this.props.loading ? (
@@ -43,4 +44,6 @@ const mapStateToProps = (state: RootState) => {
     }
 }
 
-export default connect(mapStateToProps)(ProductDetails)
+const ProductDetailsWithRouter = withRouter(ProductDetails)
+
+export default connect(mapStateToProps)(ProductDetailsWithRouter)
