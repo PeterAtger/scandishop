@@ -60,7 +60,7 @@ export class NavBar extends Component<Props, State> {
                 <div className="Nav-links">
                     {Categories}
                 </div>
-                <Link to='/Home'>
+                <Link to='/'>
                     <APP_SVG.LOGO className="logo" onClick={() => { this.setState({ isForward: !this.state.isForward }); }} />
                 </Link>
                 <div className="Currency-cart">

@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { RouteComponentProps, withRouter } from 'react-router'
 import { APP_SVG } from '../../../../constants/images'
 import { CurrenciesProps, PriceProps, ProductProps } from '../../../../Data/Models/DataModels'
 import fetchProduct from '../../../../Data/Repositories/Product'
-import { RootState } from '../../../../Logic/Store/store'
+import { setLoading } from '../../../../Logic/Store/LoadingReducer'
+import { selectProduct } from '../../../../Logic/Store/ProductReducers'
+import { AppDispatch, RootState } from '../../../../Logic/Store/store'
 import './ProductCard_styles.scss'
 
-type Props = {
+interface Props extends RouteComponentProps {
     product: ProductProps,
     price: PriceProps[],
     selectedCurrency: CurrenciesProps,
-    products: ProductProps[]
+    products: ProductProps[],
+    setLoading: (state: boolean) => void,
+    selectProduct: (index: number) => void
 }
 
 class ProductCard extends Component<Props> {
@@ -20,20 +25,29 @@ class ProductCard extends Component<Props> {
 
     handleClick = async () => {
         let found = false;
+        this.props.setLoading(true);
+        this.props.history.replace('/ProductDetails', { productId: this.props.product.id })
         if (this.props.products.length) {
             for (let i = 0; i < this.props.products.length && !found; i++) {
                 if (this.props.products[i].id === this.props.product.id) {
                     console.log("From Memory:", this.props.products[i])
                     found = true
+                    this.props.selectProduct(i)
+                    this.props.setLoading(false);
                 }
             }
             if (!found) {
                 await fetchProduct(this.props.product.id)
                 console.log("From Backend:", this.props.products)
+                this.props.selectProduct(this.props.products.length)
+                this.props.setLoading(false);
+
             }
         } else {
             await fetchProduct(this.props.product.id)
             console.log("From Backend:", this.props.products)
+            this.props.selectProduct(this.props.products.length)
+            this.props.setLoading(false);
         }
     }
 
@@ -70,8 +84,20 @@ class ProductCard extends Component<Props> {
 const MapStateToProps = (state: RootState) => {
     return {
         selectedCurrency: state.currency.selectedCurrency,
-        products: state.products
+        products: state.products.allProducts,
     }
 }
 
-export default connect(MapStateToProps)(ProductCard)
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+    return {
+        setLoading: (state: boolean) => {
+            dispatch(setLoading(state))
+        },
+        selectProduct: (index: number) => {
+            dispatch(selectProduct(index))
+        }
+    }
+}
+
+const ProductCardWithRouter = withRouter(ProductCard)
+export default connect(MapStateToProps, mapDispatchToProps)(ProductCardWithRouter)

@@ -9,7 +9,7 @@ const fetchProduct = async (id: string) => {
     try {
         let response = await client.query(ProductQuery(id))
         store.dispatch(addProductToStore(response.data.product))
-    } catch (e) {
+    } catch (e: any) {
         throw new Error(e)
     }
 }

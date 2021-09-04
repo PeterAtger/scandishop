@@ -13,6 +13,7 @@ import fetchCategories from './Data/Repositories/Categories';
 import { connect } from 'react-redux';
 import { AppDispatch, RootState } from './Logic/Store/store';
 import { setLoading } from './Logic/Store/LoadingReducer';
+import ProductDetails from './View/pages/ProductDetails/ProductDetails';
 
 
 class App extends Component<any> {
@@ -24,9 +25,9 @@ class App extends Component<any> {
       await fetchCurrencies()
       await fetchCategories()
       this.props.setLoading(false)
-    } catch (e) {
+    } catch (error: any) {
       alert("Please check your connection")
-      throw new Error(e)
+      throw new Error(error)
     }
 
   }
@@ -36,18 +37,19 @@ class App extends Component<any> {
       <Router>
         <div className="App" >
           <NavBar />
-
           <div className="Page">
             <Switch>
-              <Route path="/Home">
+              <Route exact path="/">
                 <ProductListing />
+              </Route>
+              <Route path="/ProductDetails">
+                <ProductDetails />
               </Route>
               <Route path="/Cart">
                 <Cart />
               </Route>
             </Switch>
           </div>
-
         </div>
       </Router >
     );
