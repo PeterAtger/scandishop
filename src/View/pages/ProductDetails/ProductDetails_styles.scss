@@ -1,0 +1,93 @@
+@import '../../../View/theme.scss';
+
+.image{
+    margin: 16px;
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+    cursor: pointer;
+    border-radius: 8px;
+    &:hover{
+       box-shadow:  $card-shadow;
+    }
+}
+
+.category{
+    display: flex;
+    flex-direction: row;
+}
+
+.selectable{
+    @include body1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px;
+    height: 45px;
+    width: 63px;
+    border: 1px solid black;
+    cursor: pointer;
+
+}
+
+.gallery{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.left{
+    display: flex;
+    flex: 1;
+}
+
+.right{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-left: 5vw;
+    text-align: start;
+}
+
+.details-Page{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    flex: 1;
+    margin: 5vw;
+}
+
+.title{
+    @include headline4;
+    margin-bottom: 8px;
+   }
+
+.sub-Title{
+    @include headline5;
+}
+
+.headline{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.selected-Image{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    .image{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        height: 100%;
+        object-fit: contain;
+        cursor:auto;
+        &:hover{
+       box-shadow:  none;
+        }
+
+    }
+
+}

@@ -74,7 +74,7 @@ class ProductCard extends Component<Props> {
                     </div>
                 }
                 <div className="item-spacer"></div>
-                <div className="item-name">{this.props.product.name}</div>
+                <div className="item-name">{`${this.props.product.brand} ${this.props.product.name}`}</div>
                 <div className="item-price">{`${this.props.selectedCurrency.symbol} ${this.props.price[0].amount}`}</div>
             </div>
         )

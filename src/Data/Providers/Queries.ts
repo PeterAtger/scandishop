@@ -23,6 +23,7 @@ const CategoriesQuery = {
           amount,
           currency
         },
+        brand
       }
     }
   }

@@ -5,9 +5,9 @@
     align-items: flex-start;
     padding-left: 5vw;
     padding-right: 5vw;
-}
-
-.title{
- @include headline4
+    .title{
+        @include headline4
+       }
+           
 }
 

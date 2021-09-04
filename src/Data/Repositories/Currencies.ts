@@ -19,7 +19,7 @@ const fetchCurrencies = async () => {
             if (i === 0)
                 store.dispatch(selectCurrency(currency))
         }
-    } catch (e) {
+    } catch (e: any) {
         throw new Error(e)
     }
 }

@@ -1,37 +1,143 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
-import { ProductProps } from '../../../Data/Models/DataModels'
+import { CurrenciesProps, PriceProps, ProductProps } from '../../../Data/Models/DataModels'
 import { RootState } from '../../../Logic/Store/store'
+import './ProductDetails_styles.scss'
 
 interface Props extends RouteComponentProps {
     loading: boolean,
     products: ProductProps[],
     selectedProduct: number
+    selectedCurrency: CurrenciesProps,
 }
-class ProductDetails extends Component<Props> {
-    render() {
-        let currentProduct: ProductProps;
-        let images: string[] = [];
-        let title: string = "";
-        if (!this.props.loading) {
-            try {
-                currentProduct = this.props.products[this.props.selectedProduct]
-                for (let i = 0; i < currentProduct.gallery.length; i++) {
-                    images.push(currentProduct.gallery[i])
+
+type State = {
+    selectedImageIndex: number,
+    selectedAttributeIndex: number[],
+    selectedColorIndex: number[],
+}
+
+class ProductDetails extends Component<Props, State> {
+
+    state: Readonly<State> = {
+        selectedImageIndex: 0,
+        selectedAttributeIndex: new Array(10).fill(0),
+        selectedColorIndex: [0]
+    }
+
+    loadAttributes = (currentProduct: ProductProps) => {
+        let categories: JSX.Element[] = [];
+
+        // Load attributes
+        if (currentProduct.attributes) {
+            for (let i = 0; i < currentProduct.attributes.length; i++) {
+                if (currentProduct.attributes[i].type === "text") {
+                    let itemsList = []
+                    for (let j = 0; j < currentProduct.attributes[i].items.length; j++) {
+                        itemsList.push(
+                            <div key={String(j)}
+                                onClick={() => { let state = this.state.selectedAttributeIndex; state[i] = j; this.setState({ selectedAttributeIndex: state }) }}
+                                className="selectable"
+                                style={j === this.state.selectedAttributeIndex[i] ? { backgroundColor: 'black', color: 'white' } :
+                                    { backgroundColor: 'white', opacity: 0.2 }}>
+                                {currentProduct.attributes[i].items[j].value}
+                            </div>
+                        )
+                    }
+                    categories.push(
+                        <div>
+                            {currentProduct.attributes[i].name}
+                            <div key={String(i)} className="category">
+                                {itemsList}
+                            </div>
+                        </div>
+                    )
+                } else if (currentProduct.attributes[i].type === "swatch") {
+                    let itemsList = []
+                    for (let j = 0; j < currentProduct.attributes[i].items.length; j++) {
+                        itemsList.push(
+                            <div style={j === this.state.selectedColorIndex[i] ? {} :
+                                { backgroundColor: 'white', opacity: 0.2 }}>
+                                <div
+                                    onClick={() => { let state = this.state.selectedColorIndex; state[i] = j; this.setState({ selectedColorIndex: state }) }}
+                                    key={String(j)} style={{ backgroundColor: currentProduct.attributes[i].items[j].value, height: 45, width: 63 }}
+                                    className="selectable">
+                                </div>
+                            </div>
+                        )
+                    }
+                    categories.push(
+                        <div>
+                            {currentProduct.attributes[i].name}
+                            <div key={String(i)} className="category">
+                                {itemsList}
+                            </div>
+                        </div>
+                    )
                 }
-                title = currentProduct.name;
-            } catch (e) {
-                this.props.history.replace('/')
+
             }
         }
+        return categories;
+    }
+
+    loadData = () => {
+        let images: JSX.Element[] = [];
+        let title: string = "";
+        let subTitle: string = "";
+        let price: PriceProps = { amount: 0, currency: '' };
+        let categories: JSX.Element[] = [];
+
+        if (!this.props.loading) {
+            let currentProduct = this.props.products[this.props.selectedProduct]
+            for (let i = 0; i < currentProduct.gallery.length; i++) {
+                images.push(
+                    <img onClick={() => { this.setState({ selectedImageIndex: i }) }}
+                        key={String(i)} className="image" src={currentProduct.gallery[i]}
+                        alt={`${currentProduct.id} ${i}`} />)
+            }
+            title = currentProduct.brand ? currentProduct.brand : ""
+            subTitle = currentProduct.name
+            price = currentProduct.prices.filter(value => value.currency === this.props.selectedCurrency.code)[0]
+            categories = this.loadAttributes(currentProduct)
+        }
+        return ({ title, subTitle, price, images, categories })
+    }
+
+    render() {
+        let { title, subTitle, price, images, categories } = this.loadData()
         return this.props.loading ? (
             <div>
                 LoadingPage
             </div>
         ) :
-            <div>
-                {title}
+            <div className="details-Page">
+                <div className="left">
+                    <div className="gallery">
+                        {images}
+                    </div>
+                    <div className="selected-Image">
+                        {images[this.state.selectedImageIndex]}
+                    </div>
+                </div>
+                <div className="right">
+                    <div className="headline">
+                        <div className="title">
+                            {title}
+                        </div>
+                        <div className="sub-Title">
+                            {subTitle}
+                        </div>
+                    </div>
+                    <div className="sub-Title">
+                        Price:
+                    </div>
+                    <div className="sub-Title">
+                        {`${this.props.selectedCurrency.symbol} ${price.amount}`}
+                        {categories}
+                    </div>
+                </div>
             </div>
     }
 }
@@ -40,7 +146,8 @@ const mapStateToProps = (state: RootState) => {
     return {
         loading: state.loading.isLoading,
         products: state.products.allProducts,
-        selectedProduct: state.products.currentProduct
+        selectedProduct: state.products.currentProduct,
+        selectedCurrency: state.currency.selectedCurrency
     }
 }
 

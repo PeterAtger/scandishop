@@ -16,7 +16,7 @@ interface AttributeProps {
         id: string,
         value: string,
         displayValue: string
-    }
+    }[]
 }
 
 interface ProductProps {
