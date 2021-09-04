@@ -15,7 +15,6 @@ interface Props extends RouteComponentProps {
 type State = {
     selectedImageIndex: number,
     selectedAttributeIndex: number[],
-    selectedColorIndex: number[],
 }
 
 class ProductDetails extends Component<Props, State> {
@@ -23,7 +22,6 @@ class ProductDetails extends Component<Props, State> {
     state: Readonly<State> = {
         selectedImageIndex: 0,
         selectedAttributeIndex: new Array(10).fill(0),
-        selectedColorIndex: [0]
     }
 
     loadAttributes = (currentProduct: ProductProps) => {
@@ -57,10 +55,10 @@ class ProductDetails extends Component<Props, State> {
                     let itemsList = []
                     for (let j = 0; j < currentProduct.attributes[i].items.length; j++) {
                         itemsList.push(
-                            <div style={j === this.state.selectedColorIndex[i] ? {} :
+                            <div style={j === this.state.selectedAttributeIndex[i] ? {} :
                                 { backgroundColor: 'white', opacity: 0.2 }}>
                                 <div
-                                    onClick={() => { let state = this.state.selectedColorIndex; state[i] = j; this.setState({ selectedColorIndex: state }) }}
+                                    onClick={() => { let state = this.state.selectedAttributeIndex; state[i] = j; this.setState({ selectedAttributeIndex: state }) }}
                                     key={String(j)} style={{ backgroundColor: currentProduct.attributes[i].items[j].value, height: 45, width: 63 }}
                                     className="selectable">
                                 </div>
