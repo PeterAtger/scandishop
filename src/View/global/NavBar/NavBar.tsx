@@ -49,7 +49,8 @@ export class NavBar extends Component<Props, State> {
                     <div key={e.name} onClick={() => { this.props.selectCategory(index) }} className="Nav-link-container">
                         <Link
                             style={{ textDecoration: "none", color: 'inherit' }}
-                            to='/'>
+                            replace
+                            to={'/'}>
                             <div className="Nav-link">{Capitalize(e.name)} </div>
                         </Link>
                     </div>
@@ -64,7 +65,9 @@ export class NavBar extends Component<Props, State> {
                 <div className="Nav-links">
                     {Categories}
                 </div>
-                <Link to='/'>
+                <Link
+                    replace
+                    to='/'>
                     <APP_SVG.LOGO className="logo" onClick={() => { this.setState({ isForward: !this.state.isForward }); }} />
                 </Link>
                 <div className="Currency-cart">

@@ -42,10 +42,10 @@ class App extends Component<any> {
               <Route exact path="/">
                 <ProductListing />
               </Route>
-              <Route path="/ProductDetails">
+              <Route exact path="/ProductDetails">
                 <ProductDetails />
               </Route>
-              <Route path="/Cart">
+              <Route exact path="/Cart">
                 <Cart />
               </Route>
             </Switch>
