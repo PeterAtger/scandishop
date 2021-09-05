@@ -26,7 +26,7 @@ class ProductCard extends Component<Props> {
     handleClick = async () => {
         let found = false;
         this.props.setLoading(true);
-        this.props.history.replace('/ProductDetails', { productId: this.props.product.id })
+        this.props.history.replace('/ProductDetails')
         if (this.props.products.length) {
             for (let i = 0; i < this.props.products.length && !found; i++) {
                 if (this.props.products[i].id === this.props.product.id) {

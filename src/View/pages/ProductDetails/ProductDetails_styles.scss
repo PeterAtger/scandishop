@@ -8,7 +8,7 @@
     cursor: pointer;
     border-radius: 8px;
     &:hover{
-       box-shadow:  $card-shadow;
+        opacity: 0.6;
     }
 }
 
@@ -26,7 +26,7 @@
     margin-left: 0px;
     height: 45px;
     width: 63px;
-    border: 1px solid black;
+    border: 1px solid $app-dark;
     cursor: pointer;
     &:hover{
         opacity: 0.5;
@@ -99,6 +99,9 @@
         &:hover{
        box-shadow:  none;
         }
+        &:hover{
+            opacity: 1  ;
+        }
 
     }
 
@@ -107,6 +110,7 @@
 .add-to-cart{
     background-color: $app-primary;
     @include button;
+    margin-bottom: 16px;
     color: white;
     height: 56px;
     width: 50%;
