@@ -45,7 +45,7 @@ class ProductDetails extends Component<Props, State> {
                         )
                     }
                     categories.push(
-                        <div key={String(i)}>
+                        <div className="title" key={String(i)}>
                             {currentProduct.attributes[i].name}
                             <div className="category">
                                 {itemsList}
@@ -67,7 +67,7 @@ class ProductDetails extends Component<Props, State> {
                         )
                     }
                     categories.push(
-                        <div key={String(i)}>
+                        <div className="title" key={String(i)}>
                             {currentProduct.attributes[i].name}
                             <div key={String(i)} className="category">
                                 {itemsList}
@@ -88,6 +88,7 @@ class ProductDetails extends Component<Props, State> {
         let price: PriceProps = { amount: 0, currency: '' };
         let categories: JSX.Element[] = [];
         let description: string | JSX.Element | JSX.Element[] = "";
+        let inStock: boolean = true;
         if (!this.props.loading) {
             let currentProduct = this.props.products[this.props.selectedProduct]
             for (let i = 0; i < currentProduct.gallery.length; i++) {
@@ -101,12 +102,13 @@ class ProductDetails extends Component<Props, State> {
             price = currentProduct.prices.filter(value => value.currency === this.props.selectedCurrency.code)[0]
             categories = this.loadAttributes(currentProduct)
             description = parse(currentProduct.description!)
+            inStock = currentProduct.inStock
         }
-        return ({ title, subTitle, price, images, categories, description })
+        return ({ title, subTitle, price, images, categories, description, inStock })
     }
 
     render() {
-        let { title, subTitle, price, images, categories, description } = this.loadData()
+        let { title, subTitle, price, images, categories, description, inStock } = this.loadData()
         return this.props.loading ? (
             <div>
                 LoadingPage
@@ -134,12 +136,12 @@ class ProductDetails extends Component<Props, State> {
                         {categories}
                     </div>
                     <div className="title">
-                        <div className="sub-Title">
+                        <div className="title">
                             Price:
                         </div>
                         {`${this.props.selectedCurrency.symbol} ${price.amount}`}
                     </div>
-                    <button className="add-to-cart">Add to cart</button>
+                    {inStock && <button className="add-to-cart">Add to cart</button>}
                     {description}
                 </div>
             </div>

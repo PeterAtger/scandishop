@@ -68,12 +68,12 @@
 }
 
 .title{
-    @include headline4;
+    @include headline5;
     margin-bottom: 8px;
    }
 
 .sub-Title{
-    @include headline5;
+    @include headline4;
     margin-bottom: 16px;
 }
 
