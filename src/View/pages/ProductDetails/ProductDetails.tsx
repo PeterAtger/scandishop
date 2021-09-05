@@ -4,6 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router'
 import { CurrenciesProps, PriceProps, ProductProps } from '../../../Data/Models/DataModels'
 import { RootState } from '../../../Logic/Store/store'
 import './ProductDetails_styles.scss'
+import parse from 'html-react-parser';
 
 interface Props extends RouteComponentProps {
     loading: boolean,
@@ -44,9 +45,9 @@ class ProductDetails extends Component<Props, State> {
                         )
                     }
                     categories.push(
-                        <div>
+                        <div key={String(i)}>
                             {currentProduct.attributes[i].name}
-                            <div key={String(i)} className="category">
+                            <div className="category">
                                 {itemsList}
                             </div>
                         </div>
@@ -55,18 +56,18 @@ class ProductDetails extends Component<Props, State> {
                     let itemsList = []
                     for (let j = 0; j < currentProduct.attributes[i].items.length; j++) {
                         itemsList.push(
-                            <div style={j === this.state.selectedAttributeIndex[i] ? {} :
+                            <div key={String(j)} style={j === this.state.selectedAttributeIndex[i] ? {} :
                                 { backgroundColor: 'white', opacity: 0.2 }}>
                                 <div
                                     onClick={() => { let state = this.state.selectedAttributeIndex; state[i] = j; this.setState({ selectedAttributeIndex: state }) }}
-                                    key={String(j)} style={{ backgroundColor: currentProduct.attributes[i].items[j].value, height: 45, width: 63 }}
+                                    style={{ backgroundColor: currentProduct.attributes[i].items[j].value, height: 45, width: 63 }}
                                     className="selectable">
                                 </div>
                             </div>
                         )
                     }
                     categories.push(
-                        <div>
+                        <div key={String(i)}>
                             {currentProduct.attributes[i].name}
                             <div key={String(i)} className="category">
                                 {itemsList}
@@ -86,7 +87,7 @@ class ProductDetails extends Component<Props, State> {
         let subTitle: string = "";
         let price: PriceProps = { amount: 0, currency: '' };
         let categories: JSX.Element[] = [];
-
+        let description: string | JSX.Element | JSX.Element[] = "";
         if (!this.props.loading) {
             let currentProduct = this.props.products[this.props.selectedProduct]
             for (let i = 0; i < currentProduct.gallery.length; i++) {
@@ -99,12 +100,13 @@ class ProductDetails extends Component<Props, State> {
             subTitle = currentProduct.name
             price = currentProduct.prices.filter(value => value.currency === this.props.selectedCurrency.code)[0]
             categories = this.loadAttributes(currentProduct)
+            description = parse(currentProduct.description!)
         }
-        return ({ title, subTitle, price, images, categories })
+        return ({ title, subTitle, price, images, categories, description })
     }
 
     render() {
-        let { title, subTitle, price, images, categories } = this.loadData()
+        let { title, subTitle, price, images, categories, description } = this.loadData()
         return this.props.loading ? (
             <div>
                 LoadingPage
@@ -129,12 +131,16 @@ class ProductDetails extends Component<Props, State> {
                         </div>
                     </div>
                     <div className="sub-Title">
-                        Price:
-                    </div>
-                    <div className="sub-Title">
-                        {`${this.props.selectedCurrency.symbol} ${price.amount}`}
                         {categories}
                     </div>
+                    <div className="title">
+                        <div className="sub-Title">
+                            Price:
+                        </div>
+                        {`${this.props.selectedCurrency.symbol} ${price.amount}`}
+                    </div>
+                    <button className="add-to-cart">Add to cart</button>
+                    {description}
                 </div>
             </div>
     }
