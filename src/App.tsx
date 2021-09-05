@@ -57,11 +57,6 @@ class App extends Component<any> {
   }
 }
 
-// To be replaced
-
-// function Cart() {
-//   return <h2>Cart</h2>;
-// }
 
 const MapStateToProps = (state: RootState) => {
   return {

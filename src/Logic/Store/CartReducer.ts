@@ -41,7 +41,7 @@ const CardSlice: Slice<CartSliceProps> = createSlice({
         },
         decrementQuantaty: (CartState, action: { payload: number, type: string }) => {
             CartState[action.payload].quantaty--
-            if (CartState[action.payload].quantaty === 1) {
+            if (CartState[action.payload].quantaty === 0) {
                 CartState.splice(action.payload, 1)
             }
         },

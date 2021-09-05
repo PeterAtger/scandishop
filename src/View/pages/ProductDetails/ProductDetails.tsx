@@ -26,7 +26,6 @@ class ProductDetails extends Component<Props> {
     constructor(props: Props) {
         super(props);
         this.productLogic = new ProductDetailsLogic()
-
     }
 
     render() {

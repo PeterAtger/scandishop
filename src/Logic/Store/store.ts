@@ -19,7 +19,7 @@ import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
     key: 'fed',
-    blacklist: ['categories', 'loading', 'currency', 'cartReducer'],
+    blacklist: ['categories', 'loading', 'currency'],
     version: 1,
     storage,
 }

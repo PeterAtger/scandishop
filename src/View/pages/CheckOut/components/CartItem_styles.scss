@@ -1,0 +1,77 @@
+@import '../../../../View/theme.scss';
+
+.cart-item{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    min-height: 225px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .brand{
+        @include headline5
+    }
+
+    .name{
+        @include headline6
+    }
+
+    .left-cart-item{
+        display: flex;
+        height: 100%;
+        margin: 1vw;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    .attributes{
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        justify-content: flex-start;
+        .title{
+            @include headline6
+        }
+
+    }
+
+    .right-cart-item{
+        display: flex;
+        flex-direction: row;
+    }
+    .quantaty{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin-right: 2rem;
+        user-select: none;
+        .inc-dec{
+            @include headline4;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border: 2px solid $app-dark;
+        }
+        .quantaty-number{
+            @include headline5;
+            display: flex;
+            justify-content: center;
+            flex: 1;
+            align-items: center;
+        }
+
+    }
+
+
+    .cart-image{
+        height: 200px;
+        width: 200px;
+        object-fit: contain;
+
+    }
+}
+
