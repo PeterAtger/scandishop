@@ -1,46 +1,36 @@
-# Getting Started with Create React App
+# ScandiWeb React Developer Test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Please make sure to read this file. The code is completely readable and intuitive but having an idea of the structure can't harm.
 
-## Available Scripts
+## The app has three different screens 
+- Product Listing
+- Product details
+- Checkout Page
+--------------------------------------------
+### The app is created using typescript, React class components and Redux state management library.
 
-In the project directory, you can run:
+--------------------------------------------
+### The app consists of 3 important folders and the structure is as follows:
+- ## View :
+  -------------------------------------------
+  -  Where each screen has it's own folder / Each screen component is found in the components folder in each screen
+  - If a components is used by more than one screen it's put in the global components folder
+  - Theme.scss contains all the global colors and fonts for the app that are used as mixins or variables.
+- ## Logic :
+  ----------------------------
+  - Helpers: This is where the helper functions are
+  - Store : This folder contains the store and reducers and types
+  - Others: Each other folder contains the logic for each screen because I hate putting the logic in the same file as the view.
+- ## Data :
+    ------------------------------------
+    - Models: This is where the types for all the data is kept.
+    - Providers: If you want to use a different backend or more than one this is where all the queries and clients should be.
+    - Repositories: This is where the data is pulled from the backend providers, is forced to fit into the data models, and then injected into the store. 
 
-### `yarn start`
+--------------------------------------
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### For performance reasons I also used redux-persist. I left a few console.logs to show you when data is grabbed from the backend (Only the first load ) and when it's grabbed from the store 
+--------------------------------------
+### I left you some easter eggs so please feel free to change the scale of the page and click everywhere. I had a lot of fun in the last few days so I hope you find this website and my code to your liking and consider me in your hiring process
+--------------------------------------
+# Thank you

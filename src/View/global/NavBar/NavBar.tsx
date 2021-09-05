@@ -61,7 +61,14 @@ export class NavBar extends Component<Props, State> {
         return (
             <nav className="App-header">
                 <div className="burger-container">
-                    <div className="burger"> <Lottie speed={this.state.isForward ? 1 : -1} options={this.defaultOptions} /></div>
+                    <div className="burger" onClick={() => { this.setState({ isForward: !this.state.isForward }); }}>
+                        <Lottie speed={this.state.isForward ? 1 : -1} options={this.defaultOptions} />
+                        {this.state.isForward &&
+                            <div >
+                                {Categories}
+                            </div>
+                        }
+                    </div>
                 </div>
                 <div className="Nav-links">
                     {Categories}
@@ -69,7 +76,7 @@ export class NavBar extends Component<Props, State> {
                 <Link
                     replace
                     to='/'>
-                    <APP_SVG.LOGO className="logo" onClick={() => { this.setState({ isForward: !this.state.isForward }); }} />
+                    <APP_SVG.LOGO className="logo" />
                 </Link>
                 <div className="Currency-cart">
                     <AppCurrencyDropdown placeHolder={currencyPlaceHolder} options={currencyOptions} />

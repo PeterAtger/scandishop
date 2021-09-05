@@ -5,7 +5,7 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    height: 80px;
+    min-height: 80px;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -21,6 +21,12 @@
       height: 40px;
       @media screen and (max-width:500px) {
         display: flex;
+        .Nav-link-container{
+          height: auto;
+        }
+        .Nav-link{
+          height: auto;
+        }
       }
     }
     .burger-container{
