@@ -12,6 +12,7 @@
 }
 
 .currency-dropdown-selector{
+    position: relative;
     display: flex;
     align-items: flex-end;
     margin: 8px;
@@ -33,4 +34,32 @@
     background-color: $app-white;
     flex-direction: column;
     box-shadow: $card-shadow;
+}
+
+.price-text{
+    @include headline6;
+    margin-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display:flex;
+    flex-direction: row;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-counter{
+    display: flex;
+    position: relative;
+    top: -0.5rem;
+    right: -0.5rem;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: black;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    color: white;
+
 }

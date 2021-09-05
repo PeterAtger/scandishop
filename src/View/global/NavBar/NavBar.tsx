@@ -10,6 +10,7 @@ import AppCurrencyDropdown from './components/dropdown';
 import { AppDispatch, RootState } from '../../../Logic/Store/store';
 import { Capitalize } from '../../../Logic/Helpers/functions';
 import { selectCategory } from '../../../Logic/Store/CategoriesReducer';
+import CartDropDown from './components/CartDropDown/CartDropDown';
 
 type State = {
     isForward: boolean
@@ -72,7 +73,7 @@ export class NavBar extends Component<Props, State> {
                 </Link>
                 <div className="Currency-cart">
                     <AppCurrencyDropdown placeHolder={currencyPlaceHolder} options={currencyOptions} />
-                    <Link to="/Cart" ><APP_SVG.CART /></Link>
+                    <CartDropDown />
                 </div>
             </nav>
         )

@@ -17,6 +17,8 @@ type State = {
     dropDownClicked: boolean
 }
 
+
+
 class AppCurrencyDropdown extends Component<Props, State> {
 
     state: Readonly<State> = {
