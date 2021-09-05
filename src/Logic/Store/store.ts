@@ -3,6 +3,8 @@ import { categoriesReducer } from "./CategoriesReducer";
 import { currencyReducer } from "./currencyReducer";
 import { loadingReducer } from "./LoadingReducer";
 import { productReducer } from "./ProductReducers";
+import { cardReducer } from "./CartReducer";
+
 import {
     persistStore,
     FLUSH,
@@ -16,8 +18,8 @@ import {
 import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
-    key: 'reducer',
-    blacklist: ['categories', 'loading', 'currency'],
+    key: 'fed',
+    blacklist: ['categories', 'loading', 'currency', 'cartReducer'],
     version: 1,
     storage,
 }
@@ -25,7 +27,8 @@ const persistedReducer = persistCombineReducers(persistConfig, {
     currency: currencyReducer,
     categories: categoriesReducer,
     loading: loadingReducer,
-    products: productReducer
+    products: productReducer,
+    cartReducer: cardReducer
 })
 const store = configureStore({
     reducer: persistedReducer,

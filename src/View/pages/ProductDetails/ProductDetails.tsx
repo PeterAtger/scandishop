@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { CurrenciesProps, ProductProps } from '../../../Data/Models/DataModels'
 import ProductDetailsLogic from '../../../Logic/ProductDetails/Details.logic'
-import { RootState } from '../../../Logic/Store/store'
+import { addProductToCart } from '../../../Logic/Store/CartReducer'
+import { AppDispatch, RootState } from '../../../Logic/Store/store'
 import './ProductDetails_styles.scss'
 
 interface Props extends RouteComponentProps {
@@ -11,7 +12,10 @@ interface Props extends RouteComponentProps {
     products: ProductProps[],
     selectedProduct: number
     selectedCurrency: CurrenciesProps,
-    selectedImageIndex: number
+    selectedImageIndex: number,
+    addProductToCart: (product: any) => void,
+    selectedAttributes: number[]
+
 }
 
 
@@ -59,7 +63,7 @@ class ProductDetails extends Component<Props> {
                         </div>
                         {`${this.props.selectedCurrency.symbol} ${price.amount}`}
                     </div>
-                    {inStock && <button className="add-to-cart">Add to cart</button>}
+                    {inStock && <button onClick={() => { this.props.addProductToCart({ product: this.props.products[this.props.selectedProduct], attributes: this.props.selectedAttributes }) }} className="add-to-cart">Add to cart</button>}
                     {description}
                 </div>
             </div>
@@ -77,6 +81,14 @@ const mapStateToProps = (state: RootState) => {
     }
 }
 
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+    return {
+        addProductToCart: (product: any) => {
+            dispatch(addProductToCart(product))
+        },
+    }
+}
+
 const ProductDetailsWithRouter = withRouter(ProductDetails)
 
-export default connect(mapStateToProps)(ProductDetailsWithRouter)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailsWithRouter)

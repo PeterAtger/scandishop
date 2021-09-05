@@ -35,5 +35,12 @@ interface CategoryProps {
     products: ProductProps[]
 }
 
+interface CartProductsProps {
+    id: string,
+    product: ProductProps,
+    selectedAttributes: number[],
+    quantaty: number
+}
 
-export type { CurrenciesProps, CategoryProps, ProductProps, PriceProps }
+
+export type { CurrenciesProps, CategoryProps, ProductProps, PriceProps, CartProductsProps }

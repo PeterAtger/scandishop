@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { AppDispatch, RootState } from './Logic/Store/store';
 import { setLoading } from './Logic/Store/LoadingReducer';
 import ProductDetails from './View/pages/ProductDetails/ProductDetails';
+import CheckOut from './View/pages/CheckOut/CheckOut';
 
 
 class App extends Component<any> {
@@ -46,7 +47,7 @@ class App extends Component<any> {
                 <ProductDetails />
               </Route>
               <Route exact path="/Cart">
-                <Cart />
+                <CheckOut />
               </Route>
             </Switch>
           </div>
@@ -58,9 +59,9 @@ class App extends Component<any> {
 
 // To be replaced
 
-function Cart() {
-  return <h2>Cart</h2>;
-}
+// function Cart() {
+//   return <h2>Cart</h2>;
+// }
 
 const MapStateToProps = (state: RootState) => {
   return {
