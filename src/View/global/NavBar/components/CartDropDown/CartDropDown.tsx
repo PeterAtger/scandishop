@@ -45,7 +45,7 @@ class CartDropDown extends Component<Props, State> {
 
     loadItems = () => {
         let items = [];
-        let totalPrice = 0;
+        let totalPrice: number | string = 0;
         for (let i = 0; i < this.props.products.length; i++) {
             let price = this.props.products[i].product.prices.filter((p => p.currency === this.props.selectedCurrency.code))[0]
             totalPrice = totalPrice + price?.amount
@@ -64,6 +64,7 @@ class CartDropDown extends Component<Props, State> {
                 </div>
             )
         }
+        totalPrice = parseFloat(totalPrice.toString()).toFixed(2)
         return { items, totalPrice }
     }
 

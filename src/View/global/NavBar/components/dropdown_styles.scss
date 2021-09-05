@@ -2,7 +2,6 @@
 
 .dropdown-container{
     @include body1;
-
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -30,7 +29,9 @@
 .dropdown-menu{
     display: flex;
     position: absolute;
+    max-height: 50vh;
     top: 64px;
+    overflow-y: scroll;
     background-color: $app-white;
     flex-direction: column;
     box-shadow: $card-shadow;
@@ -49,6 +50,7 @@
 }
 
 .item-counter{
+    @include caption;
     display: flex;
     position: relative;
     top: -0.5rem;
