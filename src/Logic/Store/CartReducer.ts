@@ -13,7 +13,8 @@ const CardSlice: Slice<CartSliceProps> = createSlice({
             if (CartState.length !== 0) {
                 console.log(CartState)
                 for (let i = 0; i < CartState.length && !found; i++) {
-                    if (CartState[i].id === action.payload.product.id) {
+                    if (CartState[i].id === action.payload.product.id &&
+                        JSON.stringify(CartState[i].selectedAttributes) === JSON.stringify(action.payload.attributes)) {
                         found = true;
                         CartState[i].quantaty++;
                     }
@@ -47,7 +48,17 @@ const CardSlice: Slice<CartSliceProps> = createSlice({
             }
         },
         setCartAttributes: (CartState, action: { payload: { indexOfProduct: number, attributes: number[] }, type: string }) => {
-            CartState[action.payload.indexOfProduct].selectedAttributes = action.payload.attributes
+            let found = false;
+            for (let i = 0; i < CartState.length && !found; i++) {
+                if (CartState[i].id === CartState[action.payload.indexOfProduct].id &&
+                    JSON.stringify(CartState[i].selectedAttributes) === JSON.stringify(action.payload.attributes)) {
+                    console.log('found something')
+                    found = true;
+                    CartState[i].quantaty = CartState[i].quantaty + CartState[action.payload.indexOfProduct].quantaty;
+                    CartState.splice(action.payload.indexOfProduct, 1)
+                }
+            }
+            if (CartState[action.payload.indexOfProduct]) CartState[action.payload.indexOfProduct].selectedAttributes = action.payload.attributes
         }
     },
 })
