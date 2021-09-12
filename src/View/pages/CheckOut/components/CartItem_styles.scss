@@ -8,6 +8,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .image-container{
+        user-select: none;
+        position: relative;
+        cursor: pointer;
+        .left-arrow{
+            position: absolute;
+            top: 50%;
+        }
+        .right-arrow{
+            position: absolute;
+            top:50%;
+            right: 0;
+        }
+    }
     
     .brand{
         @include headline5

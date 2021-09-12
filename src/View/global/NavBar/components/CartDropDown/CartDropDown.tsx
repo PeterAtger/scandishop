@@ -79,7 +79,7 @@ class CartDropDown extends Component<Props, State> {
                         subTitle={this.props.products[i].product.name}
                         price={price}
                         attributes={attributes}
-                        image={this.props.products[i].product.gallery[0]}
+                        images={this.props.products[i].product.gallery}
                         index={i}
                     />
                     <div className="seperator" />

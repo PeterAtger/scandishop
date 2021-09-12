@@ -26,6 +26,7 @@ class CheckOut extends Component<CheckOutProps> {
         this.cartLogic = new CartItemLogic()
     }
 
+
     loadItems = () => {
         let items = [];
         for (let i = 0; i < this.props.products.length; i++) {
@@ -37,7 +38,7 @@ class CheckOut extends Component<CheckOutProps> {
                         subTitle={this.props.products[i].product.name}
                         price={this.props.products[i].product.prices.filter((p => p.currency === this.props.selectedCurrency.code))[0]}
                         attributes={attributes}
-                        image={this.props.products[i].product.gallery[0]}
+                        images={this.props.products[i].product.gallery}
                         index={i}
                     />
                     <div className="seperator" />

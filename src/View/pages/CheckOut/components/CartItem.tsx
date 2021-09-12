@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { CartProductsProps, PriceProps } from '../../../../Data/Models/DataModels'
 import { decrementQuantaty, incrementQuantaty } from '../../../../Logic/Store/CartReducer'
 import { AppDispatch, RootState } from '../../../../Logic/Store/store'
+import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai'
 import './CartItem_styles.scss'
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
     subTitle: string,
     price: PriceProps,
     attributes: JSX.Element | JSX.Element[],
-    image: string
+    images: string[]
     decrementQuantaty: (index: number) => void,
     incrementQuantaty: (index: number) => void,
     index: number,
@@ -19,6 +20,26 @@ type Props = {
 }
 
 class CartItem extends Component<Props> {
+
+    state = {
+        imageIndex: 0
+    }
+
+    changeImage = (to: 'next' | 'previous') => {
+        let length = this.props.images.length;
+        console.log((this.state.imageIndex + 1) % length)
+        if (to === 'next') {
+            this.setState({ imageIndex: (this.state.imageIndex + 1) % length })
+        }
+        else {
+            let prev = (this.state.imageIndex - 1) % length
+            if (prev < 0) {
+                prev = length - 1
+            }
+            this.setState({ imageIndex: prev })
+        }
+    }
+
     render() {
         return (
             <div className="cart-item">
@@ -45,7 +66,11 @@ class CartItem extends Component<Props> {
                         </div>
 
                     </div>
-                    <img className="cart-image" src={this.props.image} alt={this.props.subTitle} />
+                    <div className="image-container">
+                        <AiOutlineArrowLeft className="left-arrow" onClick={() => { this.changeImage('previous') }} />
+                        <img className="cart-image" src={this.props.images[this.state.imageIndex]} alt={this.props.subTitle} />
+                        <AiOutlineArrowRight className="right-arrow" onClick={() => { this.changeImage('next') }} />
+                    </div>
                 </div>
             </div >
         )
