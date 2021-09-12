@@ -16,6 +16,9 @@
     .name{
         @include headline6
     }
+    .cart-text{
+        text-align: start;
+    }
 
     .left-cart-item{
         display: flex;

@@ -23,7 +23,7 @@ class CartItem extends Component<Props> {
         return (
             <div className="cart-item">
                 <div className="left-cart-item">
-                    <div style={{ textAlign: 'start' }}>
+                    <div className="cart-text">
                         <div className="brand">{this.props.name}</div>
                         <div className="name">{this.props.subTitle}</div>
                     </div>

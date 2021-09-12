@@ -11,5 +11,12 @@
         @include headline4;
         margin-bottom:2rem;
     }
+
 }
 
+.checkout-item{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%
+}

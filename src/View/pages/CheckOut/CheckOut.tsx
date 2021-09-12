@@ -31,8 +31,8 @@ class CheckOut extends Component<CheckOutProps> {
         for (let i = 0; i < this.props.products.length; i++) {
             let attributes = this.cartLogic.loadAttributes(this.props.products[i].product, i)
             items.push(
-                <div key={String(i)} style={{ display: 'flex', flex: 1, flexDirection: 'column', width: '100%' }}>
-                    <div style={{ backgroundColor: 'gray', width: '100%', height: "1px" }} />
+                <div key={String(i)} className="checkout-item">
+                    <div className="seperator" />
                     <CartItem name={this.props.products[i].product.brand!}
                         subTitle={this.props.products[i].product.name}
                         price={this.props.products[i].product.prices.filter((p => p.currency === this.props.selectedCurrency.code))[0]}
@@ -40,7 +40,7 @@ class CheckOut extends Component<CheckOutProps> {
                         image={this.props.products[i].product.gallery[0]}
                         index={i}
                     />
-                    <div style={{ backgroundColor: 'gray', width: '100%', height: "1px" }} />
+                    <div className="seperator" />
                 </div>
             )
         }

@@ -73,8 +73,8 @@ class CartDropDown extends Component<Props, State> {
             totalPrice = totalPrice + (price?.amount * this.props.products[i].quantaty)
             let attributes = this.cartLogic.loadAttributes(this.props.products[i].product, i)
             items.push(
-                <div key={String(i)} style={{ display: 'flex', flex: 1, flexDirection: 'column', width: '100%' }}>
-                    <div style={{ backgroundColor: 'gray', width: '100%', height: "1px" }} />
+                <div key={String(i)} className="cart-item-container">
+                    <div className="seperator" />
                     <CartItem name={this.props.products[i].product.brand!}
                         subTitle={this.props.products[i].product.name}
                         price={price}
@@ -82,7 +82,7 @@ class CartDropDown extends Component<Props, State> {
                         image={this.props.products[i].product.gallery[0]}
                         index={i}
                     />
-                    <div style={{ backgroundColor: 'gray', width: '100%', height: "1px" }} />
+                    <div className="seperator" />
                 </div>
             )
         }

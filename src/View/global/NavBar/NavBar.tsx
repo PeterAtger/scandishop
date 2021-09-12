@@ -49,7 +49,7 @@ export class NavBar extends Component<Props, State> {
                 return (
                     <div key={e.name} onClick={() => { this.props.selectCategory(index) }} className="Nav-link-container">
                         <Link
-                            style={{ textDecoration: "none", color: 'inherit' }}
+                            className="link"
                             replace
                             to={'/'}>
                             <div className="Nav-link">{Capitalize(e.name)} </div>
