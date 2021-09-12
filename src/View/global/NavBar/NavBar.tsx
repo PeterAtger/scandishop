@@ -22,7 +22,8 @@ type Props = {
     allCurrencies: CurrenciesProps[],
     selectedCurrency: CurrenciesProps,
     categories: CategoryProps[],
-    selectCategory: any
+    selectCategory: any,
+    selectedCategory: number
 }
 
 export class NavBar extends Component<Props, State> {
@@ -43,12 +44,17 @@ export class NavBar extends Component<Props, State> {
     mapCategories = () => {
         return this.props.categories.map((e, index) => {
             return (
-                <div key={e.name} onClick={() => { this.props.selectCategory(index) }} className="Nav-link-container">
+                <div key={e.name}
+                    onClick={() => { this.props.selectCategory(index) }}
+                    className="Nav-link-container"
+                    style={{ borderBottom: this.props.selectedCategory === index ? '3px solid #5ECE7B' : '' }}>
                     <Link
                         className="link"
                         replace
                         to={'/'}>
-                        <div className="Nav-link">{Capitalize(e.name)} </div>
+                        <div className="Nav-link"
+                            style={{ color: this.props.selectedCategory === index ? '#5ECE7B' : 'black' }}>
+                            {Capitalize(e.name)} </div>
                     </Link>
                 </div>
             )
@@ -96,7 +102,8 @@ const MapStateToProps = (state: RootState) => {
         allCurrencies: state.currency.allCurrencies,
         selectedCurrency: state.currency.selectedCurrency,
         categories: state.categories.allCategories,
-        loading: state.loading.isLoading
+        loading: state.loading.isLoading,
+        selectedCategory: state.categories.selectedCategory
     }
 }
 

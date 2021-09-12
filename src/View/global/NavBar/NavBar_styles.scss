@@ -14,6 +14,7 @@
     padding-right: 5vw;
     background-color: $app-white;
     z-index: 900;
+    height: 80px;
 
 
     .burger{
@@ -22,7 +23,7 @@
       @media screen and (max-width:500px) {
         display: flex;
         .Nav-link-container{
-          height: auto;
+          height: 100%;
         }
         .Nav-link{
           height: auto;
@@ -42,6 +43,7 @@
       display: flex;
       flex-direction: row;
       flex: 1;
+      height: 100%;
       justify-content: flex-start;
       @media screen and (max-width: 500px) {
         display: none;
