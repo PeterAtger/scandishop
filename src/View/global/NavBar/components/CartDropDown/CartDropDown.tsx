@@ -18,15 +18,35 @@ type State = {
 
 class CartDropDown extends Component<Props, State> {
     cartLogic: CartItemLogic
-
-    constructor(props: Props) {
-        super(props);
-        this.cartLogic = new CartItemLogic()
-    }
+    wrapperRef: React.RefObject<any>
 
     state: Readonly<State> = {
         dropDownClicked: false
     }
+
+    constructor(props: Props) {
+        super(props);
+        this.cartLogic = new CartItemLogic()
+
+        this.wrapperRef = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
+    handleClickOutside(event: { target: any }) {
+        if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+            this.setState({ dropDownClicked: false })
+        }
+    }
+
+
     clickHandler = () => {
         if (this.getWindowDimensions().width > 720)
             this.setState({ dropDownClicked: !this.state.dropDownClicked })
@@ -71,7 +91,7 @@ class CartDropDown extends Component<Props, State> {
     render() {
         let { items, totalPrice } = this.loadItems();
         return (
-            <div className="dropdown-container">
+            <div ref={this.wrapperRef} className="dropdown-container">
                 <div onClick={this.clickHandler} className="currency-dropdown-selector">
                     <APP_SVG.CART />
                     {items.length !== 0 && <div className="item-counter">{items.length}</div>}

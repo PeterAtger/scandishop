@@ -20,6 +20,31 @@ type State = {
 
 
 class AppCurrencyDropdown extends Component<Props, State> {
+    wrapperRef: React.RefObject<any>
+    setWrapperRef: any
+
+    constructor(props: Props) {
+        super(props);
+
+        this.wrapperRef = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
+    handleClickOutside(event: { target: any }) {
+        if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+            this.setState({ dropDownClicked: false })
+        }
+    }
+
+
 
     state: Readonly<State> = {
         dropDownClicked: false
@@ -40,7 +65,7 @@ class AppCurrencyDropdown extends Component<Props, State> {
             return Menu
         }
         return (
-            <div onClick={this.clickHandler} className="dropdown-container">
+            <div onClick={this.clickHandler} ref={this.wrapperRef} className="dropdown-container">
                 <div className="currency-dropdown-selector">
                     {this.props.placeHolder}
                     <AiOutlineDown />
