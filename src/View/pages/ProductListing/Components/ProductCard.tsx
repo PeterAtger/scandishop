@@ -4,6 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router'
 import { APP_SVG } from '../../../../constants/images'
 import { CurrenciesProps, PriceProps, ProductProps } from '../../../../Data/Models/DataModels'
 import fetchProduct from '../../../../Data/Repositories/Product'
+import { addProductToCart } from '../../../../Logic/Store/CartReducer'
 import { setLoading } from '../../../../Logic/Store/LoadingReducer'
 import { selectProduct } from '../../../../Logic/Store/ProductReducers'
 import { AppDispatch, RootState } from '../../../../Logic/Store/store'
@@ -15,7 +16,8 @@ interface Props extends RouteComponentProps {
     selectedCurrency: CurrenciesProps,
     products: ProductProps[],
     setLoading: (state: boolean) => void,
-    selectProduct: (index: number) => void
+    selectProduct: (index: number) => void,
+    addProductToCart: (product: any) => void,
 }
 
 class ProductCard extends Component<Props> {
@@ -51,14 +53,20 @@ class ProductCard extends Component<Props> {
         }
     }
 
+    handleCartClick = () => {
+        this.props.addProductToCart(
+            { product: this.props.product }
+        )
+
+    }
+
     render() {
         return (
             <div className="item"
-                onClick={() => { this.handleClick(); }}
                 onMouseEnter={() => { this.setState({ hovered: true }) }}
                 onMouseLeave={() => { this.setState({ hovered: false }) }} key={this.props.product.id}>
                 {this.props.product.inStock ?
-                    <div className="item-image-container">
+                    <div onClick={() => { this.handleClick(); }} className="item-image-container">
                         <img className="item-image" src={this.props.product.gallery[0]} alt={this.props.product.name} />
                     </div> :
                     <div className='item-image-container'>
@@ -69,7 +77,7 @@ class ProductCard extends Component<Props> {
                 }
                 {
                     this.state.hovered && this.props.product.inStock
-                    && <div className="shop-cart">
+                    && <div onClick={this.handleCartClick} className="shop-cart">
                         <APP_SVG.CART_FILLED />
                     </div>
                 }
@@ -95,6 +103,9 @@ const mapDispatchToProps = (dispatch: AppDispatch) => {
         },
         selectProduct: (index: number) => {
             dispatch(selectProduct(index))
+        },
+        addProductToCart: (product: any) => {
+            dispatch(addProductToCart(product))
         }
     }
 }

@@ -19,6 +19,16 @@ const CategoriesQuery = {
         name,
         inStock,
         gallery,
+        attributes{
+          id,
+          name,
+          type,
+          items{
+            displayValue,
+            value,
+            id
+          }
+        },
         prices{
           amount,
           currency

@@ -8,6 +8,7 @@ const CardSlice: Slice<CartSliceProps> = createSlice({
     initialState: [] as CartProductsProps[],
     reducers: {
         addProductToCart: (CartState, action: { payload: { product: ProductProps, attributes: number[] }, type: string }) => {
+            console.log(action.payload.product, action.payload.attributes)
             let found = false;
             if (CartState.length !== 0) {
                 console.log(CartState)
@@ -22,7 +23,7 @@ const CardSlice: Slice<CartSliceProps> = createSlice({
                     CartState.push({
                         id: action.payload.product.id,
                         product: action.payload.product,
-                        selectedAttributes: action.payload.attributes,
+                        selectedAttributes: action.payload.attributes ? action.payload.attributes : new Array(10).fill(0),
                         quantaty: 1
                     })
                 }
@@ -30,7 +31,7 @@ const CardSlice: Slice<CartSliceProps> = createSlice({
                 CartState.push({
                     id: action.payload.product.id,
                     product: action.payload.product,
-                    selectedAttributes: action.payload.attributes,
+                    selectedAttributes: action.payload.attributes ? action.payload.attributes : new Array(10).fill(0),
                     quantaty: 1
                 })
             }

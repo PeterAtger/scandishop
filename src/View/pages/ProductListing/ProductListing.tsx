@@ -14,14 +14,22 @@ type Props = {
 }
 
 class ProductListing extends Component<Props> {
-    render() {
+
+    loadItems = () => {
         let products = this.props.loading ? [] : this.props.allCategories[this.props.selectedCategory].products;
-        let categoryName = this.props.loading ? "Category Name" : Capitalize(this.props.allCategories[this.props.selectedCategory].name)
         let items = this.props.loading ? "Loading..." :
             products?.map(product => {
                 let price = product.prices.filter(value => value.currency === this.props.selectedCurrency.code)
                 return (<ProductCard key={product.id} product={product} price={price} />)
             })
+
+        return { items }
+
+    }
+
+    render() {
+        let categoryName = this.props.loading ? "Category Name" : Capitalize(this.props.allCategories[this.props.selectedCategory].name)
+        let { items } = this.loadItems()
         return (
             <div className="women-page">
                 <p className="title">{categoryName}</p>
