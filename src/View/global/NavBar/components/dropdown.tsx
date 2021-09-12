@@ -52,18 +52,20 @@ class AppCurrencyDropdown extends Component<Props, State> {
 
     clickHandler = () => { this.setState({ dropDownClicked: !this.state.dropDownClicked }) }
 
-    render() {
-        const dropdownMenu = () => {
-            let Menu: any[] = []
-            for (let i = 0; i < this.props.options.length; i++) {
-                Menu.push(
-                    <div key={this.props.options[i].code} className='option' onClick={() => { this.props.selectCurrency(this.props.options[i]) }}>
-                        {`${this.props.options[i].symbol} ${this.props.options[i].code}`}
-                    </div>
-                )
-            }
-            return Menu
+    dropdownMenu = () => {
+        let Menu: any[] = []
+        for (let i = 0; i < this.props.options.length; i++) {
+            Menu.push(
+                <div key={this.props.options[i].code} className='option' onClick={() => { this.props.selectCurrency(this.props.options[i]) }}>
+                    {`${this.props.options[i].symbol} ${this.props.options[i].code}`}
+                </div>
+            )
         }
+        return Menu
+    }
+
+    render() {
+
         return (
             <div onClick={this.clickHandler} ref={this.wrapperRef} className="dropdown-container">
                 <div className="currency-dropdown-selector">
@@ -72,7 +74,7 @@ class AppCurrencyDropdown extends Component<Props, State> {
                 </div>
                 {this.state.dropDownClicked &&
                     <div className="dropdown-menu">
-                        {dropdownMenu()}
+                        {this.dropdownMenu()}
                     </div>
                 }
             </div>

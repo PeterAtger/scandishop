@@ -40,23 +40,27 @@ export class NavBar extends Component<Props, State> {
         }
     };
 
+    mapCategories = () => {
+        return this.props.categories.map((e, index) => {
+            return (
+                <div key={e.name} onClick={() => { this.props.selectCategory(index) }} className="Nav-link-container">
+                    <Link
+                        className="link"
+                        replace
+                        to={'/'}>
+                        <div className="Nav-link">{Capitalize(e.name)} </div>
+                    </Link>
+                </div>
+            )
+        })
+    }
+
 
     render() {
         let currencyPlaceHolder = this.props.loading ? "Loading..." : `${this.props.selectedCurrency.symbol}`;
         let currencyOptions = this.props.loading ? [{ code: '', symbol: '' }] : this.props.allCurrencies;
-        let Categories = this.props.loading ? <div>Categories</div> :
-            this.props.categories.map((e, index) => {
-                return (
-                    <div key={e.name} onClick={() => { this.props.selectCategory(index) }} className="Nav-link-container">
-                        <Link
-                            className="link"
-                            replace
-                            to={'/'}>
-                            <div className="Nav-link">{Capitalize(e.name)} </div>
-                        </Link>
-                    </div>
-                )
-            })
+        let Categories = this.props.loading ? <div>Categories</div> : this.mapCategories()
+
 
         return (
             <nav className="App-header">
