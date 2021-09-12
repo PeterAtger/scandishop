@@ -47,8 +47,8 @@ class CartDropDown extends Component<Props, State> {
     }
 
 
-    clickHandler = () => {
-        if (this.getWindowDimensions().width > 720)
+    clickHandler = (cartCount: number) => {
+        if (this.getWindowDimensions().width > 720 && cartCount !== 0)
             this.setState({ dropDownClicked: !this.state.dropDownClicked })
         else {
             this.props.history.replace('/Cart')
@@ -94,7 +94,7 @@ class CartDropDown extends Component<Props, State> {
         let { items, totalPrice, cartCount } = this.loadItems();
         return (
             <div ref={this.wrapperRef} className="dropdown-container">
-                <div onClick={this.clickHandler} className="currency-dropdown-selector">
+                <div onClick={() => { this.clickHandler(cartCount) }} className="currency-dropdown-selector">
                     <APP_SVG.CART />
                     {items.length !== 0 && <div className="item-counter">{cartCount}</div>}
                 </div>
@@ -102,8 +102,16 @@ class CartDropDown extends Component<Props, State> {
                     <div className="dropdown-menu">
                         {items}
                         <div className="price-text">
-                            <div>{`Total = ${this.props.selectedCurrency.symbol} ${totalPrice}`}</div>
-                            <button onClick={() => { this.props.history.replace('/Cart'); this.clickHandler() }} className="add-to-cart">
+                            <div>
+                                {`Total `}
+                            </div>
+                            {`${this.props.selectedCurrency.symbol} ${totalPrice}`}
+                        </div>
+                        <div className="price-text">
+                            <button onClick={() => { this.props.history.replace('/Cart'); this.clickHandler(cartCount) }} className="view-cart">
+                                View Cart
+                            </button>
+                            <button onClick={() => { this.props.history.replace('/Cart'); this.clickHandler(cartCount) }} className="add-to-cart">
                                 Checkout
                             </button>
                         </div>
