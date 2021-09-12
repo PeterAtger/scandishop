@@ -64,11 +64,13 @@ class CartDropDown extends Component<Props, State> {
     }
 
     loadItems = () => {
+        let cartCount = 0;
         let items = [];
         let totalPrice: number | string = 0;
         for (let i = 0; i < this.props.products.length; i++) {
             let price = this.props.products[i].product.prices.filter((p => p.currency === this.props.selectedCurrency.code))[0]
-            totalPrice = totalPrice + price?.amount
+            cartCount = cartCount + (this.props.products[i].quantaty)
+            totalPrice = totalPrice + (price?.amount * this.props.products[i].quantaty)
             let attributes = this.cartLogic.loadAttributes(this.props.products[i].product, i)
             items.push(
                 <div key={String(i)} style={{ display: 'flex', flex: 1, flexDirection: 'column', width: '100%' }}>
@@ -85,16 +87,16 @@ class CartDropDown extends Component<Props, State> {
             )
         }
         totalPrice = parseFloat(totalPrice.toString()).toFixed(2)
-        return { items, totalPrice }
+        return { items, totalPrice, cartCount }
     }
 
     render() {
-        let { items, totalPrice } = this.loadItems();
+        let { items, totalPrice, cartCount } = this.loadItems();
         return (
             <div ref={this.wrapperRef} className="dropdown-container">
                 <div onClick={this.clickHandler} className="currency-dropdown-selector">
                     <APP_SVG.CART />
-                    {items.length !== 0 && <div className="item-counter">{items.length}</div>}
+                    {items.length !== 0 && <div className="item-counter">{cartCount}</div>}
                 </div>
                 {this.state.dropDownClicked &&
                     <div className="dropdown-menu">
