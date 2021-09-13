@@ -8,12 +8,23 @@ query  {
 `
 }
 
-
-const CategoriesQuery = {
+const CategoryNamesQuery = {
   query: gql`
   query{
     categories{
       name,
+    }
+  }
+`
+}
+
+
+
+
+const CategoriesQuery = (categoryName: string) => ({
+  query: gql`
+  query{
+    category(input:{title:"${categoryName}"}){
       products{
         id,
         name,
@@ -38,7 +49,7 @@ const CategoriesQuery = {
     }
   }
 `
-}
+})
 
 const ProductQuery = (id: string) => {
   return {
@@ -73,4 +84,4 @@ const ProductQuery = (id: string) => {
 
 }
 
-export { CurrenciesQuery, CategoriesQuery, ProductQuery }
+export { CurrenciesQuery, CategoriesQuery, ProductQuery, CategoryNamesQuery }

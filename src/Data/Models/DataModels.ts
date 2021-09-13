@@ -32,7 +32,7 @@ interface ProductProps {
 
 interface CategoryProps {
     name: string,
-    products: ProductProps[]
+    products?: ProductProps[]
 }
 
 interface CartProductsProps {

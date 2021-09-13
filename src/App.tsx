@@ -9,7 +9,7 @@ import {
 import ProductListing from './View/pages/ProductListing/ProductListing';
 import fetchCurrencies from './Data/Repositories/Currencies';
 import NavBar from './View/global/NavBar/NavBar';
-import fetchCategories from './Data/Repositories/Categories';
+import fetchCategories, { fetchCategoryNames } from './Data/Repositories/Categories';
 import { connect } from 'react-redux';
 import { AppDispatch, RootState } from './Logic/Store/store';
 import { setLoading } from './Logic/Store/LoadingReducer';
@@ -24,7 +24,8 @@ class App extends Component<any> {
   componentDidMount = async () => {
     try {
       await fetchCurrencies()
-      await fetchCategories()
+      await fetchCategoryNames()
+      await fetchCategories(this.props.allCategories[this.props.selectedCategory].name)
       this.props.setLoading(false)
     } catch (error: any) {
       alert("Please check your connection")
@@ -60,7 +61,9 @@ class App extends Component<any> {
 
 const MapStateToProps = (state: RootState) => {
   return {
-    loading: state.loading.isLoading
+    loading: state.loading.isLoading,
+    allCategories: state.categories.allCategories,
+    selectedCategory: state.categories.selectedCategory,
   }
 }
 
