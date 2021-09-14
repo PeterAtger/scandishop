@@ -67,9 +67,9 @@ class CartItem extends Component<Props> {
 
                     </div>
                     <div className="image-container">
-                        <AiOutlineArrowLeft className="left-arrow" onClick={() => { this.changeImage('previous') }} />
+                        {this.props.images.length !== 1 && <AiOutlineArrowLeft className="left-arrow" onClick={() => { this.changeImage('previous') }} />}
                         <img className="cart-image" src={this.props.images[this.state.imageIndex]} alt={this.props.subTitle} />
-                        <AiOutlineArrowRight className="right-arrow" onClick={() => { this.changeImage('next') }} />
+                        {this.props.images.length !== 1 && <AiOutlineArrowRight className="right-arrow" onClick={() => { this.changeImage('next') }} />}
                     </div>
                 </div>
             </div >
