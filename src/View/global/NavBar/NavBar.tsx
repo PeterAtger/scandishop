@@ -49,14 +49,13 @@ export class NavBar extends Component<Props, State> {
             return (
                 <div key={e.name}
                     onClick={() => { this.props.selectCategory(index); this.loadItems(index) }}
-                    className="Nav-link-container"
-                    style={{ borderBottom: this.props.selectedCategory === index ? '3px solid #5ECE7B' : '' }}>
+                    className={this.props.selectedCategory === index ? "Nav-link-container--primary" : "Nav-link-container--dark"}>
                     <Link
                         className="link"
                         replace
                         to={'/'}>
-                        <div className="Nav-link"
-                            style={{ color: this.props.selectedCategory === index ? '#5ECE7B' : 'black' }}>
+                        <div className={this.props.selectedCategory === index ? "Nav-link--primary" : "Nav-link--dark"}
+                        >
                             {Capitalize(e.name)} </div>
                     </Link>
                 </div>

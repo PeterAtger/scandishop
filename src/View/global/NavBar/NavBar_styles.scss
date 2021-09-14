@@ -50,7 +50,7 @@
       }
     }
   
-    .Nav-link {
+    @mixin Nav-link {
       @include headline6;
       padding-left: 16px;
       padding-right: 16px;
@@ -60,14 +60,35 @@
         color: $app-dark
       }
     }
+
+    .Nav-link--dark{
+      @include Nav-link;
+      color: $app-dark;
+    }
     
-    .Nav-link-container {
+    .Nav-link--primary{
+      @include Nav-link;
+      color: $app-primary;
+    }
+    
+
+    @mixin Nav-link-container {
       display: flex;
       height: 100%;
       align-items: center;
       justify-content: center;
       justify-items: center;
     }
+
+    .Nav-link-container--dark{
+        @include Nav-link-container;
+
+    }
+    .Nav-link-container--primary{
+      @include Nav-link-container;
+      border-bottom: 3px solid $app-primary;
+
+  }
   
     .logo{
       flex: 1

@@ -20,9 +20,7 @@ class CartItemLogic {
                         itemsList.push(
                             <div key={String(j)}
                                 onClick={() => { let state = [...store.getState().cartReducer[index].selectedAttributes]; state[i] = j; store.dispatch(setCartAttributes({ indexOfProduct: index, attributes: state })) }}
-                                className="selectable"
-                                style={j === store.getState().cartReducer[index].selectedAttributes[i] ? { backgroundColor: 'black', color: 'white' } :
-                                    { backgroundColor: 'white', opacity: 0.2 }}>
+                                className={j === store.getState().cartReducer[index].selectedAttributes[i] ? "selectable--selected" : "selectable--unselected"}>
                                 {currentProduct.attributes[i].items[j].value}
                             </div>
                         )
@@ -39,12 +37,12 @@ class CartItemLogic {
                     let itemsList = []
                     for (let j = 0; j < currentProduct.attributes[i].items.length; j++) {
                         itemsList.push(
-                            <div key={String(j)} style={j === store.getState().cartReducer[index].selectedAttributes[i] ? {} :
-                                { backgroundColor: 'white', opacity: 0.2 }}>
+                            <div key={String(j)}
+                                className={j === store.getState().cartReducer[index].selectedAttributes[i] ? "" : "unselected-swatch"}>
                                 <div
                                     onClick={() => { let state = [...store.getState().cartReducer[index].selectedAttributes]; state[i] = j; store.dispatch(setCartAttributes({ indexOfProduct: index, attributes: state })) }}
                                     style={{ backgroundColor: currentProduct.attributes[i].items[j].value, height: 45, width: 63 }}
-                                    className="selectable">
+                                    className="selectable--selected">
                                 </div>
                             </div>
                         )

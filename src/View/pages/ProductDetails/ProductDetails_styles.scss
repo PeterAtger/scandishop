@@ -17,7 +17,7 @@
     flex-direction: row;
 }
 
-.selectable{
+@mixin selectable{
     @include body1;
     display: flex;
     justify-content: center;
@@ -32,6 +32,23 @@
         opacity: 0.5;
     }
 
+}
+
+.selectable--selected{
+    @include selectable;
+    background-color: black;
+    color: white
+}
+
+.selectable--unselected{
+    @include selectable;
+    background-color: white;
+    opacity: 0.2
+}
+
+.unselected-swatch{
+    background-color: white;
+    opacity: 0.2
 }
 
 .gallery{

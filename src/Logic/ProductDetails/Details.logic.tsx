@@ -26,9 +26,7 @@ class ProductDetailsLogic {
                         itemsList.push(
                             <div key={String(j)}
                                 onClick={() => { let state = [...store.getState().products.selectedAttributes]; state[i] = j; store.dispatch(selectAtrributes(state)) }}
-                                className="selectable"
-                                style={j === store.getState().products.selectedAttributes[i] ? { backgroundColor: 'black', color: 'white' } :
-                                    { backgroundColor: 'white', opacity: 0.2 }}>
+                                className={j === store.getState().products.selectedAttributes[i] ? "selectable--selected" : "selectable--unselected"}>
                                 {currentProduct.attributes[i].items[j].value}
                             </div>
                         )
@@ -45,12 +43,12 @@ class ProductDetailsLogic {
                     let itemsList = []
                     for (let j = 0; j < currentProduct.attributes[i].items.length; j++) {
                         itemsList.push(
-                            <div key={String(j)} style={j === store.getState().products.selectedAttributes[i] ? {} :
-                                { backgroundColor: 'white', opacity: 0.2 }}>
+                            <div key={String(j)}
+                                className={j === store.getState().products.selectedAttributes[i] ? "" : "unselected-swatch"}>
                                 <div
                                     onClick={() => { let state = [...store.getState().products.selectedAttributes]; state[i] = j; console.log(state); store.dispatch(selectAtrributes(state)) }}
                                     style={{ backgroundColor: currentProduct.attributes[i].items[j].value, height: 45, width: 63 }}
-                                    className="selectable">
+                                    className="selectable--selected">
                                 </div>
                             </div>
                         )
