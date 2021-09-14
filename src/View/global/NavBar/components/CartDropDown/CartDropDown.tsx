@@ -117,6 +117,8 @@ class CartDropDown extends Component<Props, State> {
                         </div>
                     </div>
                 }
+                {this.state.dropDownClicked && <div onClick={() => this.setState({ dropDownClicked: false })} className="back-drop" />}
+
             </div>
         )
     }
