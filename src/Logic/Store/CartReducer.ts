@@ -51,7 +51,8 @@ const CardSlice: Slice<CartSliceProps> = createSlice({
             let found = false;
             for (let i = 0; i < CartState.length && !found; i++) {
                 if (CartState[i].id === CartState[action.payload.indexOfProduct].id &&
-                    JSON.stringify(CartState[i].selectedAttributes) === JSON.stringify(action.payload.attributes)) {
+                    JSON.stringify(CartState[i].selectedAttributes) === JSON.stringify(action.payload.attributes) &&
+                    i !== action.payload.indexOfProduct) {
                     console.log('found something')
                     found = true;
                     CartState[i].quantaty = CartState[i].quantaty + CartState[action.payload.indexOfProduct].quantaty;
